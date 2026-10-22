@@ -2174,15 +2174,70 @@ aside,
             }
             const fullHtml = (item.description || '') + ' ' + (item.content || '');
             const m = fullHtml.match(/<img[^>]+src=["']([^"']+)["']/i);
-            if (m && m[1].startsWith('http')) return m[1];
+            if (m && m[1].startsWith('http')) return m[1].replace(/&amp;/g, '&');
+            return '';
+        }
 
+        // Ảnh tạm khi bài chưa có ảnh: cố định theo tiêu đề để không nhảy hình mỗi lần vẽ lại
+        const FALLBACK_IMG = 'https://images.unsplash.com/photo-1508873696983-2df5293cb32b?auto=format&fit=crop&w=600&q=80';
+        function placeholderImage(title) {
             const defaultUSImages = [
                 'https://images.unsplash.com/photo-1508873696983-2df5293cb32b?auto=format&fit=crop&w=600&q=80',
                 'https://images.unsplash.com/photo-1541872703-74c5e44368f9?auto=format&fit=crop&w=600&q=80',
                 'https://images.unsplash.com/photo-1485738422979-f5c462d49f74?auto=format&fit=crop&w=600&q=80',
                 'https://images.unsplash.com/photo-1501594907352-04cda38ebc29?auto=format&fit=crop&w=600&q=80'
             ];
-            return defaultUSImages[Math.floor(Math.random() * defaultUSImages.length)];
+            let h = 0;
+            for (const ch of String(title)) h = (h * 31 + ch.charCodeAt(0)) >>> 0;
+            return defaultUSImages[h % defaultUSImages.length];
+        }
+
+        // LẤY ẢNH ĐẠI DIỆN TỪ TRANG BÀI GỐC QUA WORKER (feed CNBC không có ảnh, NPR nhiều bài thiếu ảnh)
+        const OG_HOSTS = ['www.npr.org', 'www.cnbc.com', 'www.foxnews.com', 'www.foxbusiness.com'];
+        const OG_CACHE_KEY = 'nv_og_images_v1';
+        let ogCache = {};
+        try { ogCache = JSON.parse(localStorage.getItem(OG_CACHE_KEY) || '{}'); } catch (e) { }
+        const ogPending = new Set();
+
+        function canFetchOg(link) {
+            if (!WORKER_PROXY) return false;
+            try { return OG_HOSTS.includes(new URL(link).hostname); } catch (e) { return false; }
+        }
+
+        function applyCachedImage(item) {
+            if (!item.needsImage) return;
+            const img = ogCache[item.link];
+            if (img) { item.image = img; item.needsImage = false; }
+        }
+
+        let ogRenderTimer = null;
+        function fetchMissingImages() {
+            const visible = [...currentHeroArticles, ...currentFilteredArticles.slice(0, visibleCount)];
+            const todo = visible.filter(it => it.needsImage && !(it.link in ogCache) && !ogPending.has(it.link) && canFetchOg(it.link));
+            todo.forEach(async item => {
+                ogPending.add(item.link);
+                let image = null;
+                try {
+                    const r = await fetchWithTimeout(`${WORKER_PROXY.replace(/\/$/, '')}/?og=${encodeURIComponent(item.link)}`, 10000);
+                    if (r.ok) image = (await r.json()).image || null;
+                } catch (e) { }
+                ogPending.delete(item.link);
+                ogCache[item.link] = image;  // lưu cả kết quả rỗng để không hỏi lại mãi
+                try {
+                    const keys = Object.keys(ogCache);
+                    if (keys.length > 400) keys.slice(0, keys.length - 400).forEach(k => delete ogCache[k]);
+                    localStorage.setItem(OG_CACHE_KEY, JSON.stringify(ogCache));
+                } catch (e) { }
+                if (!image) return;
+                allArticles.filter(a => a.link === item.link).forEach(a => { a.image = image; a.needsImage = false; });
+                item.image = image; item.needsImage = false;
+                // Gom nhiều ảnh về cùng lúc thành 1 lần vẽ lại
+                clearTimeout(ogRenderTimer);
+                ogRenderTimer = setTimeout(() => {
+                    if (!document.getElementById('search-input').value && currentHeroArticles.length >= 3) renderHero(currentHeroArticles);
+                    renderNewsGrid();
+                }, 300);
+            });
         }
 
         // Lấy chữ thuần từ HTML mà không cho trình duyệt tải ảnh/script trong đó
@@ -2219,16 +2274,21 @@ aside,
         function makeArticle(feed, raw, dateStr) {
             const date = parseFeedDate(dateStr);
             if (!date || !raw.title) return null;
-            return {
+            const title = raw.title.trim();
+            const realImage = extractImage(raw);
+            const item = {
                 source: feed.name,
                 category: feed.category,
-                title: raw.title.trim(),
+                title: title,
                 description: cleanDescription(raw),
-                image: extractImage(raw),
+                image: realImage || placeholderImage(title),
+                needsImage: !realImage,
                 link: raw.link || '#',
                 rawDate: date,
                 pubDate: date.toLocaleDateString('vi-VN')
             };
+            applyCachedImage(item);
+            return item;
         }
 
         function parseRawXmlFeed(xmlText, feed) {
@@ -2298,7 +2358,9 @@ aside,
             const now = Date.now();
             const seen = new Set();
             const unique = [];
-            for (const it of [...newItems, ...allArticles]) {
+            // Khi trùng tiêu đề, ưu tiên giữ bản đã có ảnh thật
+            const ordered = [...newItems, ...allArticles].sort((a, b) => (a.needsImage ? 1 : 0) - (b.needsImage ? 1 : 0));
+            for (const it of ordered) {
                 const key = it.title.trim().toLowerCase();
                 if (seen.has(key)) continue;
                 if (now - it.rawDate > MAX_ARTICLE_AGE) continue;
@@ -2344,7 +2406,7 @@ aside,
 
             document.getElementById('hero-mini-container').innerHTML = `
         <div class="hero-mini-card" onclick="openModal(${allArticles.indexOf(mini1)})">
-          <img src="${escapeHtml(mini1.image)}" class="hero-mini-thumb" alt="Thumb">
+          <img src="${escapeHtml(mini1.image)}" class="hero-mini-thumb" alt="Thumb" onerror="this.onerror=null;this.src='${FALLBACK_IMG}'">
           <div>
             <span class="badge-pill">● ${mini1.source}</span>
             <h4 style="font-size:0.86rem; font-weight:700; line-height:1.3; margin-top:4px;">${escapeHtml(tMini1)}</h4>
@@ -2352,7 +2414,7 @@ aside,
           </div>
         </div>
         <div class="hero-mini-card" onclick="openModal(${allArticles.indexOf(mini2)})">
-          <img src="${escapeHtml(mini2.image)}" class="hero-mini-thumb" alt="Thumb">
+          <img src="${escapeHtml(mini2.image)}" class="hero-mini-thumb" alt="Thumb" onerror="this.onerror=null;this.src='${FALLBACK_IMG}'">
           <div>
             <span class="badge-pill">● ${mini2.source}</span>
             <h4 style="font-size:0.86rem; font-weight:700; line-height:1.3; margin-top:4px;">${escapeHtml(tMini2)}</h4>
@@ -2363,7 +2425,7 @@ aside,
 
             document.getElementById('hero-big-container').onclick = () => openModal(allArticles.indexOf(big));
             document.getElementById('hero-big-container').innerHTML = `
-        <img src="${escapeHtml(big.image)}" class="hero-bg-img" alt="Hero">
+        <img src="${escapeHtml(big.image)}" class="hero-bg-img" alt="Hero" onerror="this.onerror=null;this.src='${FALLBACK_IMG}'">
         <div class="hero-overlay"></div>
         <div class="hero-big-content">
           <span class="badge-pill" style="color: #60a5fa;">${heroTag}</span>
@@ -2476,6 +2538,7 @@ aside,
             });
 
             loadBtn.style.display = (visibleCount < currentFilteredArticles.length) ? 'block' : 'none';
+            fetchMissingImages();
         }
 
         function loadMoreNews() {
@@ -2492,7 +2555,9 @@ aside,
                 document.getElementById('modal-badge').innerText = `● ${item.source.toUpperCase()}`;
                 document.getElementById('modal-title').innerText = (currentLang === 'vi' && item.title_vi) ? item.title_vi : item.title;
                 document.getElementById('modal-date').innerText = item.pubDate;
-                document.getElementById('modal-img').src = item.image;
+                const modalImg = document.getElementById('modal-img');
+                modalImg.onerror = () => { modalImg.onerror = null; modalImg.src = FALLBACK_IMG; };
+                modalImg.src = item.image;
 
                 const rawText = (currentLang === 'vi' && item.desc_vi) ? item.desc_vi : item.description;
                 const paragraphs = rawText.split('\n').filter(p => p.trim().length > 0);
