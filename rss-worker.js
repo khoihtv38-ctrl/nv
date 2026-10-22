@@ -1,4 +1,4 @@
-// Cloudflare Worker: proxy RSS riêng cho VC Now Canada.
+// Cloudflare Worker: proxy RSS riêng cho VC Now Canada (index.html) và Người Việt Today (us.html).
 // Cách dùng: https://<ten-worker>.workers.dev/?url=<link RSS đã encode>
 // Chỉ cho phép các nguồn trong danh sách dưới để người khác không lợi dụng proxy.
 
@@ -6,7 +6,11 @@ const ALLOWED_HOSTS = [
   'www.cbc.ca',
   'globalnews.ca',
   'feeds.bbci.co.uk',
-  'e.vnexpress.net'
+  'e.vnexpress.net',
+  // Nguồn Hoa Kỳ cho trang Người Việt Today (us.html)
+  'moxie.foxnews.com',
+  'feeds.npr.org',
+  'www.cnbc.com'
 ];
 
 const CORS = {

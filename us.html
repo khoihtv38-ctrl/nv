@@ -1,0 +1,2638 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Người Việt Today | Tin Tức Thời Sự Hoa Kỳ & Đời Sống Người Việt Tại Hoa Kỳ</title>
+
+    <!-- Favicon Cờ Mỹ & Thời Sự -->
+    <link rel="icon" type="image/png" href="https://img.icons8.com/color/48/usa.png">
+    <!-- Google Fonts & FontAwesome & jQuery -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Merriweather:ital,wght@0,400;0,700;1,300&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <style>
+        :root {
+            --primary-blue: #1d4ed8;
+            --accent-red: #e11d48;
+            --accent-purple: #7c3aed;
+            --accent-orange: #ff5b00;
+            --bg-body: #f8fafc;
+            --bg-card: #ffffff;
+            --bg-subtle: #f1f5f9;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --border-color: #e2e8f0;
+            --radius-sm: 8px;
+            --radius-md: 14px;
+            --radius-lg: 20px;
+            --shadow-card: 0 4px 20px -2px rgba(0, 0, 0, 0.05);
+            --shadow-hover: 0 14px 28px -4px rgba(0, 0, 0, 0.1);
+            --font-body: 'Plus Jakarta Sans', sans-serif;
+            --font-serif: 'Merriweather', Georgia, serif;
+            --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        body.dark-mode {
+            --bg-body: #090d16;
+            --bg-card: #131b2e;
+            --bg-subtle: #1e293b;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --border-color: #1e293b;
+            --shadow-card: 0 4px 20px -2px rgba(0, 0, 0, 0.4);
+            --shadow-hover: 0 14px 28px -4px rgba(0, 0, 0, 0.6);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            font-family: var(--font-body);
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* TOP ANNOUNCEMENT BAR */
+        .top-strip {
+            background: #020617;
+            color: #94a3b8;
+            padding: 0.45rem 1.5rem;
+            font-size: 0.78rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .top-strip-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            white-space: nowrap;
+        }
+
+        .top-strip-market {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 0.75rem;
+        }
+
+        .market-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            background: rgba(255, 255, 255, 0.06);
+            padding: 2px 8px;
+            border-radius: 4px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            white-space: nowrap;
+        }
+
+        .market-up {
+            color: #10b981;
+            font-weight: 700;
+        }
+
+        .market-usd {
+            color: #38bdf8;
+            font-weight: 800;
+        }
+
+        .breaking-tag {
+            background: var(--accent-red);
+            color: white;
+            font-weight: 800;
+            padding: 2px 8px;
+            border-radius: 4px;
+            letter-spacing: 0.5px;
+            animation: pulseRed 2s infinite;
+        }
+
+        @keyframes pulseRed {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.6;
+            }
+        }
+
+        /* MAIN HEADER */
+        header {
+            background: var(--bg-card);
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            transition: var(--transition);
+        }
+
+        .header-container {
+            max-width: 1320px;
+            margin: 0 auto;
+            padding: 0.85rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1.2rem;
+        }
+
+        .brand-logo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 1.65rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            color: var(--text-main);
+            white-space: nowrap !important;
+            flex-shrink: 0;
+        }
+
+        .brand-logo .logo-badge {
+            background: linear-gradient(135deg, #1d4ed8, #e11d48);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 900;
+            flex-shrink: 0;
+        }
+
+        .brand-logo span {
+            color: var(--accent-red);
+        }
+
+        .header-search {
+            position: relative;
+            flex: 1;
+            max-width: 380px;
+        }
+
+        .header-search input {
+            width: 100%;
+            background: var(--bg-subtle);
+            border: 1px solid var(--border-color);
+            padding: 0.55rem 1rem 0.55rem 2.3rem;
+            border-radius: 25px;
+            outline: none;
+            font-size: 0.85rem;
+            color: var(--text-main);
+            transition: var(--transition);
+        }
+
+        .header-search input:focus {
+            border-color: var(--primary-blue);
+            box-shadow: 0 0 0 3px rgba(29, 78, 216, 0.12);
+        }
+
+        .header-search i {
+            position: absolute;
+            left: 0.9rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-shrink: 0;
+        }
+
+        .toggle-btn {
+            background: var(--bg-subtle);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .toggle-btn:hover {
+            background: var(--primary-blue);
+            color: white;
+            border-color: var(--primary-blue);
+        }
+
+        .lang-group {
+            display: flex;
+            background: var(--bg-subtle);
+            padding: 3px;
+            border-radius: 20px;
+            border: 1px solid var(--border-color);
+        }
+
+        .lang-item {
+            background: transparent;
+            color: var(--text-muted);
+            border: none;
+            padding: 4px 10px;
+            border-radius: 15px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 0.75rem;
+            transition: var(--transition);
+        }
+
+        .lang-item.active {
+            background: var(--primary-blue);
+            color: white;
+        }
+
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.3rem;
+            color: var(--text-main);
+            cursor: pointer;
+        }
+
+        /* NAVIGATION BAR */
+        nav {
+            border-top: 1px solid var(--border-color);
+            background: var(--bg-card);
+        }
+
+        .nav-inner {
+            max-width: 1320px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+            display: flex;
+            gap: 1.8rem;
+            overflow-x: auto;
+            white-space: nowrap;
+            align-items: center;
+        }
+
+        .nav-tab {
+            color: var(--text-main);
+            padding: 0.75rem 0;
+            font-size: 0.86rem;
+            font-weight: 700;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+        }
+
+        .nav-tab:hover,
+        .nav-tab.active {
+            color: var(--primary-blue);
+            border-bottom-color: var(--primary-blue);
+        }
+
+        .nav-deal-btn {
+            margin-left: auto;
+            background: linear-gradient(135deg, #ff5b00, #ea580c);
+            color: white !important;
+            font-size: 0.78rem;
+            font-weight: 800;
+            padding: 5px 12px;
+            border-radius: 20px;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            box-shadow: 0 2px 10px rgba(255, 91, 0, 0.3);
+            transition: var(--transition);
+        }
+
+        .nav-deal-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 15px rgba(255, 91, 0, 0.5);
+        }
+
+        /* CATEGORY SHOWCASE BAR */
+        .cat-showcase-bar {
+            max-width: 1320px;
+            margin: 1.5rem auto 0;
+            padding: 0 1.5rem;
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 12px;
+        }
+
+        .cat-pill-card {
+            padding: 1.1rem 1rem;
+            border-radius: var(--radius-md);
+            color: white;
+            font-weight: 800;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            box-shadow: var(--shadow-card);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cat-pill-card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .cat-c1 {
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+        }
+
+        .cat-c2 {
+            background: linear-gradient(135deg, #0284c7, #2563eb);
+        }
+
+        .cat-c3 {
+            background: linear-gradient(135deg, #e11d48, #f43f5e);
+        }
+
+        .cat-c4 {
+            background: linear-gradient(135deg, #059669, #10b981);
+        }
+
+        .cat-c5 {
+            background: linear-gradient(135deg, #d97706, #f59e0b);
+        }
+
+        /* LAYOUT CONTAINER */
+        .main-wrap {
+            max-width: 1320px;
+            margin: 1.5rem auto 3rem;
+            padding: 0 1.5rem;
+            display: grid;
+            grid-template-columns: 2.85fr 1.15fr;
+            gap: 2rem;
+            flex: 1;
+        }
+
+        /* HERO MAGAZINE GRID */
+        .foxiz-hero {
+            display: grid;
+            grid-template-columns: 1.1fr 1.6fr;
+            gap: 16px;
+            margin-bottom: 2.2rem;
+        }
+
+        .hero-list-side {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .hero-mini-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 10px;
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: var(--shadow-card);
+            flex: 1;
+        }
+
+        .hero-mini-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-hover);
+            border-color: var(--primary-blue);
+        }
+
+        .hero-mini-thumb {
+            width: 88px;
+            height: 76px;
+            border-radius: var(--radius-sm);
+            object-fit: cover;
+            flex-shrink: 0;
+        }
+
+        .hero-big-card {
+            position: relative;
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            cursor: pointer;
+            min-height: 380px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 1.8rem;
+            box-shadow: var(--shadow-card);
+        }
+
+        .hero-big-card img.hero-bg-img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+            z-index: 1;
+        }
+
+        .hero-big-card:hover img.hero-bg-img {
+            transform: scale(1.04);
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, rgba(15, 23, 42, 0.1) 20%, rgba(15, 23, 42, 0.92) 100%);
+            z-index: 2;
+        }
+
+        .hero-big-content {
+            position: relative;
+            z-index: 3;
+            color: white;
+        }
+
+        .hero-big-title {
+            font-size: 1.5rem;
+            font-weight: 800;
+            line-height: 1.35;
+            margin: 8px 0;
+            font-family: var(--font-serif);
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+        }
+
+        /* FLIGHTS SEARCH FORM */
+        .flight-search-wrapper {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 1.25rem;
+            margin-bottom: 2.2rem;
+            box-shadow: var(--shadow-card);
+        }
+
+        .flight-search-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .flight-search-title {
+            font-size: 1.05rem;
+            font-weight: 800;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* SECTION TITLE */
+        .section-title-wrap {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.25rem;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 0.5rem;
+            position: relative;
+        }
+
+        .section-title-wrap::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 80px;
+            height: 2px;
+            background: var(--primary-blue);
+        }
+
+        .section-heading {
+            font-size: 1.25rem;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .dot-accent {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--primary-blue);
+            display: inline-block;
+        }
+
+        /* NEWS GRID */
+        .grid-2col {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.25rem;
+        }
+
+        .foxiz-card {
+            background: var(--bg-card);
+            border-radius: var(--radius-md);
+            padding: 1rem;
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-card);
+            display: flex;
+            gap: 1rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .foxiz-card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-hover);
+            border-color: var(--primary-blue);
+        }
+
+        .card-thumb-wrap {
+            width: 125px;
+            height: 100px;
+            border-radius: var(--radius-sm);
+            overflow: hidden;
+            flex-shrink: 0;
+            background: var(--bg-subtle);
+        }
+
+        .card-thumb-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .foxiz-card:hover .card-thumb-wrap img {
+            transform: scale(1.08);
+        }
+
+        .card-info {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .badge-pill {
+            font-size: 0.68rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            color: var(--primary-blue);
+        }
+
+        .card-title {
+            font-size: 0.92rem;
+            font-weight: 700;
+            line-height: 1.35;
+            margin: 4px 0 6px;
+            color: var(--text-main);
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .card-meta {
+            font-size: 0.72rem;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* LOAD MORE BUTTON */
+        .load-more-center {
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        .foxiz-btn {
+            background: var(--bg-card);
+            color: var(--primary-blue);
+            border: 2px solid var(--primary-blue);
+            padding: 0.75rem 2rem;
+            border-radius: 30px;
+            font-weight: 800;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .foxiz-btn:hover {
+            background: var(--primary-blue);
+            color: white;
+            box-shadow: 0 8px 20px rgba(29, 78, 216, 0.25);
+        }
+
+        /* SIDEBAR */
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .widget-panel {
+            background: var(--bg-card);
+            border-radius: var(--radius-md);
+            padding: 1.25rem;
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-card);
+        }
+
+        .widget-head {
+            font-size: 1rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            padding-bottom: 0.4rem;
+            border-bottom: 2px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .widget-head i {
+            color: var(--accent-red);
+        }
+
+        .sponsor-ad-box {
+            background: var(--bg-card);
+            border-radius: var(--radius-md);
+            padding: 1.2rem;
+            border: 1px dashed var(--border-color);
+            text-align: center;
+        }
+
+        .sponsor-ad-btn {
+            display: inline-block;
+            background: var(--bg-subtle);
+            color: var(--text-main);
+            padding: 9px 16px;
+            border-radius: 8px;
+            font-size: 0.78rem;
+            font-weight: 700;
+            margin-top: 10px;
+            border: 1px solid var(--border-color);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .sponsor-ad-btn:hover {
+            background: var(--primary-blue);
+            color: white;
+            border-color: transparent;
+        }
+
+        /* YOUTUBE PLAYLIST VÀ DANH SÁCH DỌC */
+        .yt-playlist-panel {
+            background: #111827;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            color: #ffffff;
+        }
+
+        .yt-player-box {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            background: #000;
+        }
+
+        .yt-player-box iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        .yt-status-bar {
+            background: #1e3a8a;
+            padding: 10px 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .yt-status-bar i {
+            font-size: 1.1rem;
+            color: #60a5fa;
+        }
+
+        .yt-current-title {
+            font-size: 0.85rem;
+            font-weight: 700;
+            line-height: 1.3;
+            color: #ffffff;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            flex: 1;
+        }
+
+        .yt-live-dot {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background-color: #ef4444;
+            border-radius: 50%;
+            margin-right: 4px;
+            flex-shrink: 0;
+            animation: pulseRed 2s infinite;
+        }
+
+        .yt-items-list {
+            max-height: 280px;
+            overflow-y: auto;
+            background: #1f2937;
+        }
+
+        .yt-items-list::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        .yt-items-list::-webkit-scrollbar-track {
+            background: #111827;
+        }
+
+        .yt-items-list::-webkit-scrollbar-thumb {
+            background: #4b5563;
+            border-radius: 3px;
+        }
+
+        .yt-entry {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 9px 12px;
+            border-bottom: 1px solid #374151;
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+
+        .yt-entry:hover {
+            background: #2d3748;
+        }
+
+        .yt-entry.active {
+            background: #374151;
+            border-left: 4px solid var(--accent-red);
+        }
+
+        .yt-entry-thumb {
+            width: 90px;
+            height: 52px;
+            flex-shrink: 0;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .yt-entry-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .yt-entry-info {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+        }
+
+        .yt-entry-title {
+            font-size: 0.78rem;
+            font-weight: 600;
+            line-height: 1.25;
+            color: #f3f4f6;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .yt-entry-date {
+            font-size: 0.68rem;
+            color: #9ca3af;
+        }
+
+        /* WEATHER US GRID */
+        .weather-us-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+
+        .weather-us-card {
+            background: var(--bg-subtle);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            padding: 0.75rem;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .weather-us-card:hover {
+            border-color: var(--primary-blue);
+            background: var(--bg-card);
+            transform: translateY(-2px);
+        }
+
+        .w-city {
+            font-size: 0.8rem;
+            font-weight: 800;
+        }
+
+        .w-state {
+            font-size: 0.68rem;
+            color: var(--text-muted);
+        }
+
+        .w-icon {
+            font-size: 1.3rem;
+            margin: 4px 0;
+            color: #f59e0b;
+        }
+
+        .w-temp {
+            font-size: 1.1rem;
+            font-weight: 800;
+            color: var(--accent-red);
+        }
+
+        /* POLL */
+        .poll-box {
+            background: var(--bg-subtle);
+            border-radius: var(--radius-sm);
+            padding: 1rem;
+            margin-top: 10px;
+        }
+
+        .poll-question {
+            font-size: 0.85rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            line-height: 1.35;
+        }
+
+        .poll-option {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            padding: 7px 12px;
+            border-radius: 6px;
+            font-size: 0.78rem;
+            margin-bottom: 6px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: var(--transition);
+        }
+
+        .poll-option:hover {
+            border-color: var(--primary-blue);
+            background: rgba(29, 78, 216, 0.05);
+        }
+
+        /* MODAL */
+        .modal-backdrop {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(2, 6, 23, 0.85);
+            backdrop-filter: blur(8px);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+            padding: 1.5rem;
+        }
+
+        .modal-card {
+            background: var(--bg-card);
+            max-width: 820px;
+            width: 100%;
+            max-height: 88vh;
+            overflow-y: auto;
+            border-radius: 20px;
+            padding: 2.5rem;
+            position: relative;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            border: 1px solid var(--border-color);
+        }
+
+        .modal-card::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .modal-card::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .modal-card::-webkit-scrollbar-thumb {
+            background: #475569;
+            border-radius: 4px;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 24px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            color: var(--text-muted);
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--bg-subtle);
+            transition: var(--transition);
+            border: 1px solid var(--border-color);
+        }
+
+        .modal-close:hover {
+            background: var(--accent-red);
+            color: white;
+            transform: rotate(90deg);
+        }
+
+        .modal-header-meta {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+            flex-wrap: wrap;
+        }
+
+        .modal-badge-tag {
+            background: rgba(225, 29, 72, 0.12);
+            color: var(--accent-red);
+            font-size: 0.75rem;
+            font-weight: 800;
+            padding: 4px 10px;
+            border-radius: 6px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .modal-article-title {
+            font-family: var(--font-serif);
+            font-size: 1.75rem;
+            font-weight: 700;
+            line-height: 1.35;
+            color: var(--text-main);
+            margin-bottom: 14px;
+        }
+
+        .modal-meta-row {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .modal-img-container {
+            width: 100%;
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 24px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.2);
+        }
+
+        .modal-img-container img {
+            width: 100%;
+            height: 380px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .modal-article-body {
+            font-size: 1.05rem;
+            line-height: 1.85;
+            color: var(--text-main);
+        }
+
+        .modal-article-body p {
+            margin-bottom: 1.4rem;
+            text-align: justify;
+        }
+
+        .modal-article-body p:first-of-type::first-letter {
+            font-size: 2.8rem;
+            line-height: 1;
+            float: left;
+            font-weight: 800;
+            margin-right: 8px;
+            color: var(--primary-blue);
+            font-family: var(--font-serif);
+        }
+
+        .modal-footer-action {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px dashed var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        #sponsor-modal .modal-card {
+            max-width: 500px;
+            text-align: center;
+        }
+
+        /* FOOTER */
+        footer {
+            background: #020617;
+            color: #94a3b8;
+            padding-top: 3rem;
+            border-top: 3px solid var(--primary-blue);
+        }
+
+        .footer-grid {
+            max-width: 1320px;
+            margin: 0 auto;
+            padding: 0 1.5rem 2.5rem;
+            display: grid;
+            grid-template-columns: 1.8fr 1fr 1fr 1.4fr;
+            gap: 2rem;
+        }
+
+        .footer-head {
+            color: white;
+            font-size: 0.95rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.45rem;
+        }
+
+        .footer-links a {
+            font-size: 0.82rem;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: white;
+            padding-left: 4px;
+        }
+
+        .footer-newsletter-box input {
+            width: 100%;
+            padding: 9px 12px;
+            border-radius: 6px;
+            border: 1px solid #334155;
+            background: #0f172a;
+            color: white;
+            font-size: 0.82rem;
+            margin-bottom: 8px;
+            outline: none;
+        }
+
+        .footer-newsletter-box button {
+            width: 100%;
+            background: var(--accent-red);
+            color: white;
+            border: none;
+            padding: 9px;
+            border-radius: 6px;
+            font-weight: 700;
+            font-size: 0.82rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .footer-newsletter-box button:hover {
+            background: #be123c;
+        }
+
+        .footer-bottom {
+            background: #000000;
+            text-align: center;
+            padding: 1rem;
+            font-size: 0.78rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        @media (max-width: 1024px) {
+            .main-wrap {
+                grid-template-columns: 1fr;
+            }
+
+            .cat-showcase-bar {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .top-strip {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 0.45rem 1rem;
+                gap: 6px;
+            }
+        /* ===== FIX RESPONSIVE MOBILE ===== */
+html {
+    max-width: 100%;
+    overflow-x: hidden;   /* chỉ để ở html, body để mặc định */
+}
+
+body {
+    max-width: 100%;
+    overflow-x: clip;     /* chặn tràn ngang mà KHÔNG tạo vùng cuộn, nên sticky vẫn hoạt động */
+}
+
+img,
+iframe,
+video {
+    max-width: 100%;
+}
+
+/* Cho phép phần tử con của grid/flex co lại thay vì đẩy tràn */
+main,
+aside,
+.card-info,
+.hero-mini-card>div,
+.yt-entry-info,
+.yt-current-title {
+    min-width: 0;
+}
+
+.flight-search-wrapper,
+.widget-panel {
+    max-width: 100%;
+    overflow: hidden;
+}
+
+.card-title,
+.hero-mini-card h4,
+.hero-big-title {
+    overflow-wrap: anywhere;
+}
+
+@media (max-width: 1024px) {
+    .main-wrap {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .cat-showcase-bar {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 768px) {
+    .foxiz-hero,
+    .grid-2col,
+    .footer-grid {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .cat-showcase-bar {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+    }
+
+    /* Thẻ thứ 5 chiếm trọn hàng cho cân đối */
+    .cat-pill-card:last-child {
+        grid-column: 1 / -1;
+    }
+
+    .cat-pill-card {
+        padding: 0.9rem 0.8rem;
+        font-size: 0.85rem;
+        gap: 8px;
+    }
+
+    .cat-pill-card i {
+        flex-shrink: 0;
+    }
+
+    .header-container {
+        gap: 0.5rem;
+    }
+
+    .brand-logo {
+        font-size: 1.05rem;
+        min-width: 0;
+    }
+
+    .foxiz-card {
+        padding: 0.75rem;
+        gap: 0.75rem;
+    }
+
+    .card-thumb-wrap {
+        width: 100px;
+        height: 84px;
+    }
+
+    .hero-big-card {
+        min-height: 260px;
+        padding: 1.1rem;
+    }
+
+    .hero-big-title {
+        font-size: 1.15rem;
+    }
+
+    .flight-search-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+    }
+
+    .modal-backdrop {
+        padding: 0.75rem;
+    }
+
+    .modal-article-body p {
+        text-align: left;
+    }
+}
+
+@media (max-width: 400px) {
+    .brand-logo {
+        font-size: 0.95rem;
+    }
+
+    .brand-logo .logo-badge {
+        font-size: 0.8rem;
+    }
+
+    .lang-item {
+        padding: 3px 6px;
+    }
+}
+            .top-strip-left {
+                width: 100%;
+                justify-content: space-between;
+            }
+
+            .top-strip-market {
+                width: 100%;
+                overflow-x: auto;
+                white-space: nowrap;
+                display: flex;
+                gap: 8px;
+                padding-bottom: 2px;
+                scrollbar-width: none;
+            }
+
+            .top-strip-market::-webkit-scrollbar {
+                display: none;
+            }
+
+            .market-badge {
+                flex-shrink: 0;
+                font-size: 0.72rem;
+                padding: 2px 6px;
+            }
+
+            .header-container {
+                padding: 0.65rem 1rem;
+                gap: 0.8rem;
+            }
+
+            .brand-logo {
+                font-size: 1.25rem;
+                gap: 6px;
+            }
+
+            .brand-logo .logo-badge {
+                font-size: 0.9rem;
+                padding: 2px 7px;
+            }
+
+            .header-actions {
+                gap: 6px;
+            }
+
+            .toggle-btn {
+                width: 32px;
+                height: 32px;
+                font-size: 0.85rem;
+            }
+
+            .lang-item {
+                padding: 3px 7px;
+                font-size: 0.7rem;
+            }
+
+            .header-search {
+                display: none;
+            }
+
+            .mobile-menu-toggle {
+                display: block;
+            }
+
+            .nav-inner {
+                display: none;
+                flex-direction: column;
+                gap: 0;
+                padding: 0;
+            }
+
+            .nav-inner.open {
+                display: flex;
+            }
+
+            .nav-tab {
+                width: 100%;
+                padding: 0.75rem 1.25rem;
+                border-bottom: 1px solid var(--border-color);
+            }
+
+            .nav-deal-btn {
+                margin: 10px 1.25rem;
+                justify-content: center;
+            }
+
+            .foxiz-hero {
+                grid-template-columns: 1fr;
+            }
+
+            .grid-2col {
+                grid-template-columns: 1fr;
+            }
+
+            .cat-showcase-bar {
+                grid-template-columns: repeat(2, 1fr);
+                padding: 0 1rem;
+            }
+
+            .main-wrap {
+                padding: 0 1rem;
+                margin: 1rem auto 2.5rem;
+            }
+
+            .modal-card {
+                padding: 1.4rem;
+            }
+
+            .modal-img-container img {
+                height: 200px;
+            }
+
+            .modal-article-title {
+                font-size: 1.25rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="top-strip">
+        <div class="top-strip-left">
+            <span class="breaking-tag" id="top-breaking-tag">TIN NÓNG 24/7</span>
+            <span id="current-date">Đang cập nhật thời gian...</span>
+        </div>
+        <div class="top-strip-market">
+            <div class="market-badge" title="Tỷ giá USD tự động cập nhật">
+                <i class="fa-solid fa-dollar-sign" style="color:#38bdf8;"></i>
+                <span>USD/VND:</span>
+                <span class="market-usd" id="rate-usdvnd">25,480₫</span>
+            </div>
+            <div class="market-badge" title="Chỉ số Dow Jones">
+                <i class="fa-solid fa-arrow-trend-up market-up"></i>
+                <span>DOW:</span>
+                <span class="market-up">41,393 (+0.25%)</span>
+            </div>
+            <div class="market-badge" title="Chỉ số S&P 500">
+                <i class="fa-solid fa-arrow-trend-up market-up"></i>
+                <span>S&P 500:</span>
+                <span class="market-up">5,626 (+0.42%)</span>
+            </div>
+        </div>
+    </div>
+
+    <header>
+        <div class="header-container">
+            <div class="brand-logo">
+                <span class="logo-badge">NV</span>
+                NGƯỜI VIỆT <span>TODAY</span>
+            </div>
+
+            <div class="header-search">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" id="search-input" placeholder="Tìm kiếm thời sự Hoa Kỳ..." onkeyup="filterNews()">
+            </div>
+
+            <div class="header-actions">
+                <button class="toggle-btn" onclick="toggleDarkMode()" title="Chế độ Sáng/Tối">
+                    <i class="fa-solid fa-moon" id="dark-icon"></i>
+                </button>
+                <div class="lang-group">
+                    <button class="lang-item active" id="btn-vi" onclick="changeLanguage('vi')">VIE</button>
+                    <button class="lang-item" id="btn-en" onclick="changeLanguage('en')">EN</button>
+                </div>
+                <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">
+                    <i class="fa-solid fa-bars" id="menu-icon"></i>
+                </button>
+            </div>
+        </div>
+        <nav>
+            <div class="nav-inner" id="nav-menu">
+                <span class="nav-tab active" id="tab-all" onclick="filterCategory('all', this)"><i
+                        class="fa-solid fa-bolt"></i> Thời Sự Hoa Kỳ</span>
+                <span class="nav-tab" id="tab-politics" onclick="filterCategory('politics', this)"><i
+                        class="fa-solid fa-landmark-dome"></i> Chính Trị Hoa Kỳ</span>
+                <span class="nav-tab" id="tab-economy" onclick="filterCategory('economy', this)"><i
+                        class="fa-solid fa-chart-line"></i> Kinh Tế & Wall St</span>
+                <span class="nav-tab" id="tab-life" onclick="filterCategory('life', this)"><i
+                        class="fa-solid fa-passport"></i> Đời Sống & Di Trú</span>
+                <span class="nav-tab" id="tab-tech" onclick="filterCategory('tech', this)"><i
+                        class="fa-solid fa-microchip"></i> Thung Lũng Silicon</span>
+                <span class="nav-tab" id="tab-world" onclick="filterCategory('world', this)"><i
+                        class="fa-solid fa-earth-americas"></i> Thế Giới</span>
+                <a href="https://www.klook.com/?aid=765325" target="_blank" rel="noopener noreferrer"
+                    class="nav-deal-btn">
+                    <i class="fa-solid fa-ticket"></i> Săn Vé & Tour Klook
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <div class="cat-showcase-bar">
+        <div class="cat-pill-card cat-c1" onclick="filterCategory('politics')">
+            <span id="pill-c1">Chính Trị & Bầu Cử</span>
+            <i class="fa-solid fa-arrow-trend-up"></i>
+        </div>
+        <div class="cat-pill-card cat-c2" onclick="filterCategory('economy')">
+            <span id="pill-c2">Thị Trường Chứng Khoán</span>
+            <i class="fa-solid fa-dollar-sign"></i>
+        </div>
+        <div class="cat-pill-card cat-c3" onclick="filterCategory('life')">
+            <span id="pill-c3">Luật Di Trú & Thẻ Xanh</span>
+            <i class="fa-solid fa-id-card"></i>
+        </div>
+        <div class="cat-pill-card cat-c4" onclick="filterCategory('tech')">
+            <span id="pill-c4">Trí Tuệ Nhân Tạo (AI)</span>
+            <i class="fa-solid fa-brain"></i>
+        </div>
+        <div class="cat-pill-card cat-c5" onclick="filterCategory('world')">
+            <span id="pill-c5">Quan Hệ Quốc Tế</span>
+            <i class="fa-solid fa-globe"></i>
+        </div>
+    </div>
+
+    <div class="main-wrap">
+        <main>
+            <div class="foxiz-hero" id="hero-section">
+                <div class="hero-list-side" id="hero-mini-container"></div>
+                <div class="hero-big-card" id="hero-big-container" onclick="openModal(0)"></div>
+            </div>
+
+            <div class="flight-search-wrapper">
+                <div class="flight-search-header">
+                    <div class="flight-search-title">
+                        <i class="fa-solid fa-plane-departure" style="color: #ff5b00;"></i>
+                        <span>Săn Vé Máy Bay Giá Rẻ (Hoa Kỳ ⇄ Việt Nam)</span>
+                    </div>
+                    <span style="font-size: 0.72rem; color: var(--text-muted); font-weight: 700;">So sánh hơn 500 hãng
+                        hàng không</span>
+                </div>
+                <script async
+                    src="https://tpwgt.com/content?currency=usd&trs=562927&shmarker=765325&locale=en&default_origin=LAX&default_destination=SGN&stops=any&show_hotels=true&powered_by=true&border_radius=0&plain=false&color_button=%23ff5b00&color_button_text=%23ff5b00&promo_id=3414&campaign_id=111"
+                    charset="utf-8"></script>
+            </div>
+
+            <div class="section-title-wrap">
+                <h2 class="section-heading" id="section-heading-text">
+                    <span class="dot-accent"></span> TIN TỨC HOA KỲ MỚI NHẤT
+                </h2>
+            </div>
+
+            <div class="grid-2col" id="news-grid-container">
+                <p style="grid-column:1/-1; text-align:center; padding:2rem; color:var(--text-muted);"><i
+                        class="fa-solid fa-spinner fa-spin"></i> Đang tải tin tức Hoa Kỳ...</p>
+            </div>
+
+            <div class="load-more-center" id="load-more-wrap" style="display:none;">
+                <button class="foxiz-btn" onclick="loadMoreNews()">
+                    <span id="load-more-lbl">XEM THÊM TIN MỚI</span> <i class="fa-solid fa-angle-down"></i>
+                </button>
+            </div>
+        </main>
+
+        <aside class="sidebar">
+            <!-- KHỐI YOUTUBE PLAYLIST TỰ ĐỘNG LẤY VIDEO THẬT QUA API KEY CHÍNH HÃNG -->
+            <div class="widget-panel" style="padding: 0.9rem;">
+                <h3 class="widget-head" style="margin-bottom: 0.75rem;">
+                    <i class="fa-brands fa-youtube"></i>
+                    <span id="yt-widget-heading">Truyền Hình Người Việt</span>
+                </h3>
+
+                <div class="yt-playlist-panel">
+                    <div class="yt-player-box">
+                        <iframe id="yt-main-player" src="" title="YouTube Video Player"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                    </div>
+
+                    <div class="yt-status-bar">
+                        <span class="yt-live-dot"></span>
+                        <div class="yt-current-title" id="yt-current-title">Đang đồng bộ danh sách video...</div>
+                    </div>
+
+                    <div class="yt-items-list" id="yt-items-container">
+                        <div style="padding: 15px; text-align: center; color: #9ca3af; font-size: 0.75rem;">Đang tải
+                            danh sách video tự động...</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="widget-panel" style="padding: 1.1rem; border: 1px solid rgba(255, 91, 0, 0.35);">
+                <div
+                    style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 0.8rem; border-bottom: 2px solid var(--border-color); padding-bottom: 0.5rem;">
+                    <h3
+                        style="font-size:1rem; font-weight:800; color:var(--text-main); display:flex; align-items:center; gap:8px;">
+                        <i class="fa-solid fa-sim-card" style="color:#ff5b00;"></i>
+                        <span>eSIM Du Lịch Airalo</span>
+                    </h3>
+                    <span
+                        style="background:linear-gradient(135deg, #ff5b00, #ea580c); color:#fff; font-size:0.65rem; font-weight:800; padding:2px 6px; border-radius:4px;">4G/5G
+                        DATA</span>
+                </div>
+                <p style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 10px; line-height: 1.4;">
+                    Kết nối mạng tốc độ cao tại hơn 200 quốc gia. Giữ liên lạc khi bay về Việt Nam hoặc đi công tác quốc
+                    tế.
+                </p>
+                <div style="width:100%; overflow:hidden;">
+                    <script async
+                        src="https://tpwgt.com/content?trs=562927&shmarker=765325&locale=en&country=Vietnam&powered_by=true&color_button=%23ff5b00&color_focused=%23f2685f&secondary=%23FFFFFF&dark=%2311100f&light=%23FFFFFF&special=%23C4C4C4&border_radius=5&plain=true&no_labels=true&promo_id=8588&campaign_id=541"
+                        charset="utf-8"></script>
+                </div>
+            </div>
+
+            <div class="widget-panel" style="padding: 1.1rem;">
+                <div
+                    style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem; border-bottom:2px solid var(--border-color); padding-bottom:0.5rem;">
+                    <h3
+                        style="font-size:1rem; font-weight:800; color:var(--text-main); display:flex; align-items:center; gap:8px;">
+                        <i class="fa-solid fa-ticket" style="color:#ff5b00;"></i>
+                        <span id="klook-widget-title">Vé & Tour Tham Quan Klook</span>
+                    </h3>
+                    <span
+                        style="background:rgba(255,91,0,0.15); color:#ff5b00; font-size:0.65rem; font-weight:800; padding:2px 6px; border-radius:4px;">KLOOK</span>
+                </div>
+                <div style="display:flex; flex-direction:column; gap:10px;" id="klook-tour-container"></div>
+                <a href="https://www.klook.com/?aid=765325" target="_blank" rel="noopener noreferrer"
+                    style="margin-top:12px; display:block; text-align:center; background:linear-gradient(135deg, #ff5b00, #ea580c); color:white; font-size:0.8rem; font-weight:800; padding:8px; border-radius:8px; text-decoration:none; box-shadow:0 3px 12px rgba(255,91,0,0.35);">
+                    Xem Tất Cả Ưu Đãi Klook →
+                </a>
+            </div>
+
+            <div class="widget-panel">
+                <h3 class="widget-head">
+                    <i class="fa-solid fa-cloud-sun"></i>
+                    <span id="w-widget-title">Thời Tiết</span>
+                </h3>
+                <div class="weather-us-grid" id="weather-box">
+                    <div style="grid-column: 1/-1; text-align: center; color: var(--text-muted); font-size: 0.8rem;">
+                        Đang tải thời tiết...</div>
+                </div>
+            </div>
+
+            <div class="sponsor-ad-box">
+                <div
+                    style="font-size:0.75rem; font-weight:800; color:var(--accent-red); text-transform:uppercase; letter-spacing:0.5px;">
+                    <i class="fa-solid fa-bullhorn"></i> Hợp Tác Quảng Bá
+                </div>
+                <h4 style="font-size:0.95rem; font-weight:700; margin:6px 0; color:var(--text-main);">Dịch Vụ Di Trú &
+                    Kiều Bào Hoa Kỳ</h4>
+                <p style="font-size:0.78rem; color:var(--text-muted); line-height:1.4;">
+                    Quảng bá dịch vụ luật sư di trú, bảo hiểm, bất động sản, thuế tới cộng đồng người Việt khắp 50 tiểu
+                    bang.
+                </p>
+                <button type="button" class="sponsor-ad-btn" onclick="openSponsorModal()">
+                    Liên Hệ Đặt Banner
+                </button>
+            </div>
+
+            <div class="widget-panel">
+                <h3 class="widget-head">
+                    <i class="fa-solid fa-square-poll-vertical"></i>
+                    <span id="poll-heading">Thăm Dò Ý Kiến Bạn Đọc</span>
+                </h3>
+                <div class="poll-box">
+                    <div class="poll-question" id="poll-q">Theo bạn, yếu tố nào quan trọng nhất đối với kinh tế gia đình
+                        người Việt tại Hoa Kỳ năm 2026?</div>
+                    <div class="poll-option" onclick="votePoll(this)">
+                        <input type="radio" name="poll"> <span id="opt-1">Lãi suất vay mua nhà (Mortgage)</span>
+                    </div>
+                    <div class="poll-option" onclick="votePoll(this)">
+                        <input type="radio" name="poll"> <span id="opt-2">Kiểm soát lạm phát & giá tiêu dùng</span>
+                    </div>
+                    <div class="poll-option" onclick="votePoll(this)">
+                        <input type="radio" name="poll"> <span id="opt-3">Cơ hội việc làm & ngành công nghệ</span>
+                    </div>
+                    <div class="poll-option" onclick="votePoll(this)">
+                        <input type="radio" name="poll"> <span id="opt-4">Chính sách thuế & An sinh xã hội</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="widget-panel">
+                <h3 class="widget-head">
+                    <i class="fa-solid fa-newspaper"></i>
+                    <span id="about-heading">Về Người Việt Today</span>
+                </h3>
+                <p id="about-desc" style="font-size: 0.84rem; color: var(--text-muted);">
+                    Trang tổng hợp tin tức Hoa Kỳ độc lập, mang đến cái nhìn đa chiều về chính trị, thị trường tài
+                    chính, luật di trú và nhịp sống cộng đồng người Việt khắp 50 tiểu bang.
+                </p>
+            </div>
+        </aside>
+    </div>
+
+    <div id="article-modal" class="modal-backdrop" onclick="handleModalClick(event)">
+        <div class="modal-card">
+            <div class="modal-close" onclick="closeModal()"><i class="fa-solid fa-xmark"></i></div>
+            <div class="modal-header-meta">
+                <span id="modal-badge" class="modal-badge-tag">FOX NEWS US</span>
+            </div>
+            <h1 id="modal-title" class="modal-article-title">Tiêu đề bài viết</h1>
+            <div class="modal-meta-row">
+                <span><i class="fa-regular fa-clock" style="margin-right: 4px;"></i> <span id="modal-date">Ngày
+                        đăng</span></span>
+                <span><i class="fa-solid fa-user-pen" style="margin-right: 4px;"></i> <span id="modal-editor-lbl">Người
+                        Việt Today Biên Dịch</span></span>
+            </div>
+            <div class="modal-img-container">
+                <img id="modal-img" src="" alt="Article Banner">
+            </div>
+            <div id="modal-content" class="modal-article-body"></div>
+            <div class="modal-footer-action">
+                <span style="font-size: 0.85rem; color: var(--text-muted);" id="modal-official-lbl">
+                    <i class="fa-solid fa-shield-halved"></i> Bản quyền nội dung gốc thuộc về hãng thông tấn phát hành.
+                </span>
+                <a id="modal-link" href="#" target="_blank" rel="noopener noreferrer"
+                    style="background: linear-gradient(135deg, var(--primary-blue), #1e40af); color: white; padding: 10px 20px; border-radius: 8px; font-weight: 700; font-size: 0.88rem; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 4px 12px rgba(29, 78, 216, 0.3);">
+                    <span id="modal-btn-lbl">Xem Toàn Văn Báo Gốc</span> <i
+                        class="fa-solid fa-arrow-up-right-from-square"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div id="sponsor-modal" class="modal-backdrop" onclick="handleSponsorModalBgClick(event)">
+        <div class="modal-card">
+            <div class="modal-close" onclick="closeSponsorModal()"><i class="fa-solid fa-xmark"></i></div>
+            <div
+                style="width: 50px; height: 50px; background: linear-gradient(135deg, var(--primary-blue), var(--accent-red)); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 12px; color: white; font-size: 1.4rem;">
+                <i class="fa-solid fa-bullhorn"></i>
+            </div>
+            <h2 style="font-family: var(--font-serif); font-size: 1.4rem; color: var(--text-main); margin-bottom: 6px;">
+                Hợp Tác Truyền Thông & Quảng Cáo</h2>
+            <p style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 20px;">
+                Đưa thương hiệu và dịch vụ của bạn tiếp cận trực tiếp hàng ngàn kiều bào tại Hoa Kỳ.
+            </p>
+            <div
+                style="background: var(--bg-subtle); padding: 14px; border-radius: 10px; text-align: left; display: flex; flex-direction: column; gap: 10px; font-size: 0.85rem; border: 1px solid var(--border-color);">
+                <div><i class="fa-solid fa-envelope" style="color: var(--accent-red); width: 20px;"></i>
+                    <strong>Email:</strong> peaterkh@gmail.com</div>
+                <div><i class="fa-brands fa-youtube" style="color: #ef4444; width: 20px;"></i> <strong>Kênh
+                        Media:</strong> Người Việt Today</div>
+                <div><i class="fa-solid fa-location-dot" style="color: #38bdf8; width: 20px;"></i> <strong>Thị
+                        trường:</strong> California, Texas, New York & Toàn Hoa Kỳ</div>
+            </div>
+            <a href="https://mail.google.com/mail/?view=cm&fs=1&to=peaterkh@gmail.com&su=Lien%20he%20dat%20quang%20cao%20Nguoi%20Viet%20Today"
+                target="_blank" rel="noopener noreferrer"
+                style="display: block; margin-top: 18px; background: linear-gradient(135deg, var(--primary-blue), #1e40af); color: white; padding: 10px; border-radius: 8px; font-weight: 700; font-size: 0.85rem; text-decoration: none;">
+                <i class="fa-solid fa-paper-plane"></i> Gửi Thư Qua Gmail
+            </a>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-grid">
+            <div>
+                <div class="brand-logo" style="color: white; margin-bottom: 0.8rem; font-size: 1.4rem;">
+                    <span class="logo-badge">NV</span> NGƯỜI VIỆT <span style="color: var(--accent-red)">TODAY</span>
+                </div>
+                <p id="footer-site-desc" style="font-size: 0.82rem; line-height: 1.6;">
+                    Trang báo điện tử cập nhật tin tức thời sự Hoa Kỳ, kinh tế và đời sống cộng đồng người Việt tại Hoa
+                    Kỳ 24/7.
+                </p>
+            </div>
+            <div>
+                <h4 class="footer-head" id="footer-col1-heading">Chuyên Mục</h4>
+                <ul class="footer-links">
+                    <li><a href="javascript:void(0)" onclick="filterCategory('politics')" id="f-link-1">Chính Trị Hoa
+                            Kỳ</a></li>
+                    <li><a href="javascript:void(0)" onclick="filterCategory('economy')" id="f-link-2">Kinh Tế & Thị
+                            Trường</a></li>
+                    <li><a href="javascript:void(0)" onclick="filterCategory('life')" id="f-link-3">Đời Sống & Di
+                            Trú</a></li>
+                    <li><a href="javascript:void(0)" onclick="filterCategory('tech')" id="f-link-4">Công Nghệ
+                            Silicon</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="footer-head" id="footer-col2-heading">Đài Báo Nguồn</h4>
+                <ul class="footer-links">
+                    <li><a href="https://www.foxnews.com" target="_blank" rel="noopener noreferrer">Fox News</a></li>
+                    <li><a href="https://www.cnbc.com" target="_blank" rel="noopener noreferrer">CNBC Markets</a></li>
+                    <li><a href="https://www.npr.org" target="_blank" rel="noopener noreferrer">NPR National</a></li>
+                </ul>
+            </div>
+            <div class="footer-newsletter-box">
+                <h4 class="footer-head" id="footer-news-heading">Bản Tin Sáng (Newsletter)</h4>
+                <p style="font-size: 0.78rem; margin-bottom: 8px;" id="footer-news-sub">Nhận điểm tin thời sự Mỹ nổi bật
+                    vào mỗi 7:00 AM.</p>
+                <form onsubmit="handleSub(event)">
+                    <input type="email" id="footer-email-input" placeholder="Nhập email của bạn..." required>
+                    <button type="submit" id="footer-sub-btn">ĐĂNG KÝ NGAY</button>
+                </form>
+            </div>
+        </div>
+        <div class="footer-bottom" id="footer-copy">
+            &copy; 2026 Người Việt Today. All rights reserved. Powered by US RSS News Aggregator.
+        </div>
+    </footer>
+
+    <script>
+        // PROXY RIÊNG (Cloudflare Worker, xem file rss-worker.js). Dùng chung Worker với trang VC Now Canada.
+        // Nhớ dán lại code rss-worker.js mới vào Cloudflare để Worker cho phép các nguồn Hoa Kỳ bên dưới.
+        const WORKER_PROXY = 'https://vc-rss.ptmedia.workers.dev';
+
+        // Nguồn RSS đang hoạt động. CNN (rss.cnn.com) đã ngừng cập nhật nên được thay bằng Fox, NPR, CNBC.
+        const US_RSS_FEEDS = [
+            { name: 'Fox News US', url: 'https://moxie.foxnews.com/google-publisher/latest.xml', category: 'all' },
+            { name: 'CNBC Top News', url: 'https://www.cnbc.com/id/100003114/device/rss/rss.html', category: 'all' },
+            { name: 'Fox Politics', url: 'https://moxie.foxnews.com/google-publisher/politics.xml', category: 'politics' },
+            { name: 'NPR Politics', url: 'https://feeds.npr.org/1014/rss.xml', category: 'politics' },
+            { name: 'CNBC Economy', url: 'https://www.cnbc.com/id/20910258/device/rss/rss.html', category: 'economy' },
+            { name: 'NPR Business', url: 'https://feeds.npr.org/1006/rss.xml', category: 'economy' },
+            { name: 'NPR National', url: 'https://feeds.npr.org/1003/rss.xml', category: 'life' },
+            { name: 'Fox US', url: 'https://moxie.foxnews.com/google-publisher/us.xml', category: 'life' },
+            { name: 'Fox Tech', url: 'https://moxie.foxnews.com/google-publisher/tech.xml', category: 'tech' },
+            { name: 'NPR Technology', url: 'https://feeds.npr.org/1019/rss.xml', category: 'tech' },
+            { name: 'Fox World', url: 'https://moxie.foxnews.com/google-publisher/world.xml', category: 'world' },
+            { name: 'NPR World', url: 'https://feeds.npr.org/1004/rss.xml', category: 'world' }
+        ];
+
+        const MAX_ARTICLE_AGE = 3 * 24 * 60 * 60 * 1000;   // chỉ giữ tin trong 3 ngày
+        const REFRESH_INTERVAL = 10 * 60 * 1000;           // tự tải lại tin mỗi 10 phút
+
+        const US_VIET_CITIES = [
+            { name: 'Orange County', state: 'California', lat: 33.75, lon: -117.99 },
+            { name: 'Houston', state: 'Texas', lat: 29.76, lon: -95.36 },
+            { name: 'San Jose', state: 'California', lat: 37.33, lon: -121.89 },
+            { name: 'New York', state: 'New York', lat: 40.71, lon: -74.00 }
+        ];
+
+        const US_KLOOK_TOURS = [
+            {
+                title: 'Vé Universal Studios Hollywood & Disneyland California',
+                price: 'Từ ~109 USD',
+                rating: '4.9',
+                img: 'https://images.unsplash.com/photo-1579202673506-ca3ce28943ef?auto=format&fit=crop&w=200&q=80',
+                link: 'https://www.klook.com/en-US/city/16-los-angeles-things-to-do/?aid=765325'
+            },
+            {
+                title: 'Vé Tòa Nhà Empire State, Tượng Nữ Thần Tự Do New York',
+                price: 'Từ ~44 USD',
+                rating: '4.8',
+                img: 'https://images.unsplash.com/photo-1605130284535-11dd9eedc58a?auto=format&fit=crop&w=200&q=80',
+                link: 'https://www.klook.com/en-US/city/49-new-york-things-to-do/?aid=765325'
+            },
+            {
+                title: 'Tour Tham Quan Đại Vực Grand Canyon & Trực Thăng Las Vegas',
+                price: 'Từ ~85 USD',
+                rating: '4.9',
+                img: 'https://images.unsplash.com/photo-1474044159687-1ee9f3a51722?auto=format&fit=crop&w=200&q=80',
+                link: 'https://www.klook.com/en-US/city/47-las-vegas-things-to-do/?aid=765325'
+            },
+            {
+                title: 'Tour Ngắm Cầu Cổng Vàng & Đảo Nhà Tù Alcatraz San Francisco',
+                price: 'Từ ~52 USD',
+                rating: '4.8',
+                img: 'https://images.unsplash.com/photo-1501594907352-04cda38ebc29?auto=format&fit=crop&w=200&q=80',
+                link: 'https://www.klook.com/en-US/city/18-san-francisco-things-to-do/?aid=765325'
+            },
+            {
+                title: 'Tour Lặn Biển & Khám Phá Quần Đảo Nhiệt Đới Hawaii Oahu',
+                price: 'Từ ~75 USD',
+                rating: '4.9',
+                img: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=200&q=80',
+                link: 'https://www.klook.com/en-US/city/274-honolulu-things-to-do/?aid=765325'
+            },
+            {
+                title: 'Vé Du Thuyền Ngắm Cảnh & Tour Bãi Biển Miami Florida',
+                price: 'Từ ~38 USD',
+                rating: '4.7',
+                img: 'https://images.unsplash.com/photo-1535498730771-e735b998cd64?auto=format&fit=crop&w=200&q=80',
+                link: 'https://www.klook.com/en-US/city/51-miami-things-to-do/?aid=765325'
+            },
+            {
+                title: 'Tour Tham Quan Tòa Nhà Quốc Hội & Bảo Tàng Washington D.C.',
+                price: 'Từ ~49 USD',
+                rating: '4.8',
+                img: 'https://images.unsplash.com/photo-1501446529957-6038b7582520?auto=format&fit=crop&w=200&q=80',
+                link: 'https://www.klook.com/en-US/city/273-washington-dc-things-to-do/?aid=765325'
+            },
+            {
+                title: 'Vé Công Viên Giải Trí Walt Disney World Orlando Florida',
+                price: 'Từ ~115 USD',
+                rating: '4.9',
+                img: 'https://images.unsplash.com/photo-1513475382585-d06e58bcb0d0?auto=format&fit=crop&w=200&q=80',
+                link: 'https://www.klook.com/en-US/city/50-orlando-things-to-do/?aid=765325'
+            }
+        ];
+
+        // Chặn ký tự HTML trong tiêu đề / mô tả lấy từ RSS
+        function escapeHtml(str) {
+            return String(str == null ? '' : str)
+                .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+        }
+
+        function renderRandomKlookTours() {
+            const container = document.getElementById('klook-tour-container');
+            if (!container) return;
+
+            const shuffled = [...US_KLOOK_TOURS].sort(() => 0.5 - Math.random());
+            const selected = shuffled.slice(0, 3);
+
+            let html = '';
+            selected.forEach(t => {
+                html += `
+          <a href="${t.link}" target="_blank" rel="noopener noreferrer" style="display:flex; gap:10px; background:var(--bg-subtle); padding:8px; border-radius:8px; text-decoration:none; border:1px solid var(--border-color); transition:var(--transition);" onmouseover="this.style.borderColor='#ff5b00'" onmouseout="this.style.borderColor='var(--border-color)'">
+            <img src="${t.img}" alt="${t.title}" style="width:75px; height:65px; border-radius:6px; object-fit:cover; flex-shrink:0;" onerror="this.src='https://images.unsplash.com/photo-1508873696983-2df5293cb32b?auto=format&fit=crop&w=200&q=80'">
+            <div style="display:flex; flex-direction:column; justify-content:space-between; flex:1;">
+              <div style="font-size:0.8rem; font-weight:700; color:var(--text-main); line-height:1.25; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;">${t.title}</div>
+              <div style="display:flex; justify-content:space-between; align-items:center;">
+                <span style="color:#f59e0b; font-size:0.7rem; font-weight:700;"><i class="fa-solid fa-star"></i> ${t.rating}</span>
+                <span style="color:#ff5b00; font-weight:800; font-size:0.85rem;">${t.price}</span>
+              </div>
+            </div>
+          </a>
+        `;
+            });
+            container.innerHTML = html;
+        }
+
+        async function fetchUSDRate() {
+            try {
+                const res = await fetch('https://open.er-api.com/v6/latest/USD');
+                const data = await res.json();
+                if (data && data.rates && data.rates.VND) {
+                    const vnd = Math.round(data.rates.VND).toLocaleString('vi-VN');
+                    document.getElementById('rate-usdvnd').innerText = `${vnd}₫`;
+                }
+            } catch (e) {
+                document.getElementById('rate-usdvnd').innerText = '25,480₫';
+            }
+        }
+
+        /* TẢI TOÀN BỘ VIDEO TỪ PLAYLIST QUA YOUTUBE DATA API V3 */
+        const YT_API_KEY = "AIzaSyCnCoR9sPoI7hAbPVAwUelFcHWjO8oUhfM";
+        const US_PLAYLIST_ID = "PLY03lJniXnlrjo5ZjVmV2kCkIuyXoqBPx";
+        let ytAutoPlaylist = [];
+
+        async function fetchAutoYoutubePlaylist() {
+            const titleEl = document.getElementById('yt-current-title');
+            const apiUrl = `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=25&playlistId=${US_PLAYLIST_ID}&key=${YT_API_KEY}`;
+
+            try {
+                const res = await fetch(apiUrl);
+                const data = await res.json();
+
+                if (data.items && data.items.length > 0) {
+                    ytAutoPlaylist = data.items.map(item => {
+                        const snip = item.snippet;
+                        const vId = snip.resourceId.videoId;
+                        const rawDate = snip.publishedAt;
+                        const pubDate = rawDate ? new Date(rawDate).toLocaleDateString('vi-VN') : 'Mới cập nhật';
+
+                        return {
+                            id: vId,
+                            title: snip.title,
+                            pubDate: pubDate,
+                            thumbnail: snip.thumbnails?.medium?.url || `https://img.youtube.com/vi/${vId}/hqdefault.jpg`
+                        };
+                    }).filter(item => item.title !== "Private video" && item.title !== "Deleted video");
+
+                    renderAutoPlaylistUI();
+                    playAutoVideo(0, false);
+                } else {
+                    if (data.error) console.error("YouTube API:", data.error.message);
+                    if (titleEl) titleEl.innerText = "Danh sách phát trống hoặc chưa công khai";
+                }
+            } catch (err) {
+                console.error("Lỗi kết nối YouTube API:", err);
+                if (titleEl) titleEl.innerText = "Không thể tải danh sách video";
+            }
+        }
+
+        function renderAutoPlaylistUI() {
+            const container = document.getElementById('yt-items-container');
+            if (!container) return;
+            container.innerHTML = '';
+
+            ytAutoPlaylist.forEach((vid, idx) => {
+                const item = document.createElement('div');
+                item.className = `yt-entry ${idx === 0 ? 'active' : ''}`;
+                item.id = `yt-item-${idx}`;
+                item.onclick = () => playAutoVideo(idx, true);
+
+                item.innerHTML = `
+          <div class="yt-entry-thumb">
+            <img src="${vid.thumbnail}" alt="Thumbnail" onerror="this.src='https://images.unsplash.com/photo-1508873696983-2df5293cb32b?auto=format&fit=crop&w=200&q=80'">
+          </div>
+          <div class="yt-entry-info">
+            <div class="yt-entry-title">${escapeHtml(vid.title)}</div>
+            <div class="yt-entry-date">${vid.pubDate}</div>
+          </div>
+        `;
+                container.appendChild(item);
+            });
+        }
+
+        function playAutoVideo(index, autoplay = true) {
+            const vid = ytAutoPlaylist[index];
+            if (!vid) return;
+
+            const autoParam = autoplay ? '?autoplay=1' : '';
+            document.getElementById('yt-main-player').src = `https://www.youtube.com/embed/${vid.id}${autoParam}`;
+            document.getElementById('yt-current-title').innerText = vid.title;
+
+            document.querySelectorAll('.yt-entry').forEach(el => el.classList.remove('active'));
+            const current = document.getElementById(`yt-item-${index}`);
+            if (current) current.classList.add('active');
+        }
+
+        let allArticles = [];
+        let currentHeroArticles = [];
+        let currentFilteredArticles = [];
+        let visibleCount = 6;
+        let currentLang = 'vi';
+        let currentCategory = 'all';
+        let newsLoading = true;
+
+        // Bản dịch đã có, giữ lại khi tải lại tin để không phải dịch lại
+        const translationMemory = {};
+
+        function updateDateTime() {
+            if (currentLang === 'vi') {
+                document.getElementById('current-date').innerText = new Date().toLocaleDateString('vi-VN', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+            } else {
+                document.getElementById('current-date').innerText = new Date().toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' });
+            }
+        }
+        updateDateTime();
+
+        function toggleDarkMode() {
+            const isDark = document.body.classList.toggle('dark-mode');
+            document.getElementById('dark-icon').className = isDark ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
+            try { localStorage.setItem('nv_theme', isDark ? 'dark' : 'light'); } catch (e) { }
+        }
+
+        try {
+            if (localStorage.getItem('nv_theme') === 'dark') {
+                document.body.classList.add('dark-mode');
+                document.getElementById('dark-icon').className = 'fa-solid fa-sun';
+            }
+        } catch (e) { }
+
+        function toggleMobileMenu() {
+            const nav = document.getElementById('nav-menu');
+            nav.classList.toggle('open');
+        }
+
+        function votePoll(el) {
+            el.querySelector('input').checked = true;
+            alert(currentLang === 'vi' ? 'Cảm ơn bạn đã tham gia bình chọn ý kiến!' : 'Thank you for your vote!');
+        }
+
+        function handleSub(e) {
+            e.preventDefault();
+            alert(currentLang === 'vi' ? 'Đăng ký nhận bản tin Người Việt Today thành công!' : 'Successfully subscribed to Nguoi Viet Today newsletter!');
+            e.target.reset();
+        }
+
+        function openSponsorModal() {
+            document.getElementById('sponsor-modal').style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeSponsorModal() {
+            document.getElementById('sponsor-modal').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        function handleSponsorModalBgClick(event) {
+            if (event.target.id === 'sponsor-modal') closeSponsorModal();
+        }
+
+        async function fetchUSWeather() {
+            const container = document.getElementById('weather-box');
+            try {
+                const results = await Promise.all(US_VIET_CITIES.map(async city => {
+                    const res = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${city.lat}&longitude=${city.lon}&current_weather=true&temperature_unit=fahrenheit`);
+                    const data = await res.json();
+                    return { city, temp: Math.round(data.current_weather.temperature) };
+                }));
+                container.innerHTML = results.map(({ city, temp }) => `
+            <div class="weather-us-card">
+              <div class="w-city">${city.name}</div>
+              <div class="w-state">${city.state}</div>
+              <div class="w-icon"><i class="fa-solid fa-sun"></i></div>
+              <div class="w-temp">${temp}°F</div>
+            </div>
+          `).join('');
+            } catch (err) {
+                container.innerHTML = `<div style="grid-column:1/-1; font-size:0.75rem; color:var(--text-muted); text-align:center;">Dữ liệu thời tiết đang cập nhật.</div>`;
+            }
+        }
+
+        async function translateText(text, targetLang) {
+            if (targetLang === 'en' || !text) return text;
+            try {
+                const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=${targetLang}&dt=t&q=${encodeURIComponent(text)}`;
+                const res = await fetch(url);
+                const data = await res.json();
+                if (data && data[0]) {
+                    return data[0].map(x => x[0]).join('');
+                }
+                return text;
+            } catch (e) {
+                return text;
+            }
+        }
+
+        async function translateSingleArticle(item) {
+            if (!item || currentLang !== 'vi') return;
+            const key = item.title.substring(0, 120);
+            const mem = translationMemory[key];
+            if (mem) {
+                item.title_vi = item.title_vi || mem.title_vi;
+                item.desc_vi = item.desc_vi || mem.desc_vi;
+            }
+            if (!item.title_vi) item.title_vi = await translateText(item.title, 'vi');
+            if (!item.desc_vi) item.desc_vi = await translateText(item.description.substring(0, 1800), 'vi');
+            translationMemory[key] = { title_vi: item.title_vi, desc_vi: item.desc_vi };
+        }
+
+        // Dịch song song các bài đang hiện, xong thì vẽ lại 1 lần
+        let translateRun = 0;
+        async function translateVisibleArticles() {
+            if (currentLang !== 'vi') return;
+            const run = ++translateRun;
+
+            const list = [...currentHeroArticles, ...currentFilteredArticles.slice(0, visibleCount)]
+                .filter(it => !it.title_vi || !it.desc_vi);
+            if (!list.length) return;
+
+            await Promise.all(list.map(translateSingleArticle));
+            if (run !== translateRun || currentLang !== 'vi') return;
+
+            if (!document.getElementById('search-input').value && currentHeroArticles.length >= 3) {
+                renderHero(currentHeroArticles);
+            }
+            renderNewsGrid();
+        }
+
+        function extractImage(item) {
+            if (item.thumbnail && typeof item.thumbnail === 'string' && item.thumbnail.startsWith('http')) {
+                return item.thumbnail;
+            }
+            if (item.enclosure && item.enclosure.link && item.enclosure.link.startsWith('http')) {
+                return item.enclosure.link;
+            }
+            const fullHtml = (item.description || '') + ' ' + (item.content || '');
+            const m = fullHtml.match(/<img[^>]+src=["']([^"']+)["']/i);
+            if (m && m[1].startsWith('http')) return m[1];
+
+            const defaultUSImages = [
+                'https://images.unsplash.com/photo-1508873696983-2df5293cb32b?auto=format&fit=crop&w=600&q=80',
+                'https://images.unsplash.com/photo-1541872703-74c5e44368f9?auto=format&fit=crop&w=600&q=80',
+                'https://images.unsplash.com/photo-1485738422979-f5c462d49f74?auto=format&fit=crop&w=600&q=80',
+                'https://images.unsplash.com/photo-1501594907352-04cda38ebc29?auto=format&fit=crop&w=600&q=80'
+            ];
+            return defaultUSImages[Math.floor(Math.random() * defaultUSImages.length)];
+        }
+
+        // Lấy chữ thuần từ HTML mà không cho trình duyệt tải ảnh/script trong đó
+        function cleanDescription(item) {
+            const raw = item.content || item.description || '';
+            const doc = new DOMParser().parseFromString(raw, 'text/html');
+            const txt = (doc.body.textContent || '').trim();
+            return txt.length > 0 ? txt : 'Xem chi tiết toàn văn tại link nguồn bài báo...';
+        }
+
+        // Đọc ngày an toàn. rss2json trả "YYYY-MM-DD HH:MM:SS" theo giờ UTC nhưng không ghi múi giờ.
+        function parseFeedDate(str) {
+            if (!str) return null;
+            const s = String(str).trim();
+            const d = /^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}$/.test(s) ? new Date(s.replace(' ', 'T') + 'Z') : new Date(s);
+            return isNaN(d) ? null : d;
+        }
+
+        // Thêm tham số đổi mỗi 5 phút để proxy miễn phí không trả bản lưu sẵn cũ
+        function bust(url) {
+            return url + (url.includes('?') ? '&' : '?') + '_t=' + Math.floor(Date.now() / 300000);
+        }
+
+        async function fetchWithTimeout(url, timeoutMs = 9000) {
+            const controller = new AbortController();
+            const timer = setTimeout(() => controller.abort(), timeoutMs);
+            try {
+                return await fetch(url, { signal: controller.signal, cache: 'no-store' });
+            } finally {
+                clearTimeout(timer);
+            }
+        }
+
+        function makeArticle(feed, raw, dateStr) {
+            const date = parseFeedDate(dateStr);
+            if (!date || !raw.title) return null;
+            return {
+                source: feed.name,
+                category: feed.category,
+                title: raw.title.trim(),
+                description: cleanDescription(raw),
+                image: extractImage(raw),
+                link: raw.link || '#',
+                rawDate: date,
+                pubDate: date.toLocaleDateString('vi-VN')
+            };
+        }
+
+        function parseRawXmlFeed(xmlText, feed) {
+            const xmlDoc = new DOMParser().parseFromString(xmlText, 'text/xml');
+            const items = Array.from(xmlDoc.querySelectorAll('item'));
+            return items.map(el => {
+                const mediaThumb = el.getElementsByTagNameNS('*', 'thumbnail')[0];
+                const mediaContent = Array.from(el.getElementsByTagNameNS('*', 'content')).find(n => n.getAttribute('url'));
+                const enclosure = el.querySelector('enclosure');
+                const thumb = (mediaThumb && mediaThumb.getAttribute('url'))
+                    || (mediaContent && mediaContent.getAttribute('url'))
+                    || (enclosure && enclosure.getAttribute('url')) || '';
+                const raw = {
+                    title: el.querySelector('title')?.textContent || '',
+                    link: el.querySelector('link')?.textContent?.trim() || '#',
+                    description: el.querySelector('description')?.textContent || '',
+                    content: el.getElementsByTagNameNS('*', 'encoded')[0]?.textContent || '',
+                    thumbnail: thumb
+                };
+                const dateStr = el.querySelector('pubDate')?.textContent || el.getElementsByTagNameNS('*', 'date')[0]?.textContent;
+                return makeArticle(feed, raw, dateStr);
+            }).filter(Boolean);
+        }
+
+        // Gọi song song Worker riêng + proxy miễn phí + rss2json, cái nào trả tin trước dùng cái đó
+        async function fetchSingleFeed(feed) {
+            const encPlain = encodeURIComponent(feed.url);
+            const encBust = encodeURIComponent(bust(feed.url));
+
+            const proxyUrls = [];
+            if (WORKER_PROXY) proxyUrls.push(`${WORKER_PROXY.replace(/\/$/, '')}/?url=${encPlain}`);
+            proxyUrls.push(
+                `https://api.allorigins.win/raw?url=${encBust}`,
+                `https://api.codetabs.com/v1/proxy?quest=${encBust}`,
+                `https://corsproxy.io/?url=${encBust}`
+            );
+
+            const viaProxy = proxyUrls.map(async pUrl => {
+                const r = await fetchWithTimeout(pUrl);
+                if (!r.ok) throw new Error('HTTP ' + r.status);
+                const items = parseRawXmlFeed(await r.text(), feed);
+                if (!items.length) throw new Error('không có bài');
+                return items;
+            });
+
+            // rss2json dùng URL gốc (URL đổi liên tục bị rss2json coi là feed mới và có thể từ chối)
+            const viaRss2json = (async () => {
+                const r = await fetchWithTimeout(`https://api.rss2json.com/v1/api.json?rss_url=${encPlain}`);
+                const data = await r.json();
+                if (data.status !== 'ok' || !data.items) throw new Error('rss2json: ' + (data.message || 'lỗi'));
+                const items = data.items.map(it => makeArticle(feed, it, it.pubDate)).filter(Boolean);
+                if (!items.length) throw new Error('không có bài');
+                return items;
+            })();
+
+            try {
+                return await Promise.any([...viaProxy, viaRss2json]);
+            } catch (e) {
+                console.warn('[RSS] Không tải được feed:', feed.name);
+                return [];
+            }
+        }
+
+        // Gộp bài mới, bỏ trùng tiêu đề, bỏ tin quá cũ, sắp xếp mới nhất lên đầu rồi vẽ lại
+        function mergeArticles(newItems) {
+            if (!newItems.length) return;
+            const now = Date.now();
+            const seen = new Set();
+            const unique = [];
+            for (const it of [...newItems, ...allArticles]) {
+                const key = it.title.trim().toLowerCase();
+                if (seen.has(key)) continue;
+                if (now - it.rawDate > MAX_ARTICLE_AGE) continue;
+                seen.add(key);
+                const mem = translationMemory[it.title.substring(0, 120)];
+                if (mem) { it.title_vi = it.title_vi || mem.title_vi; it.desc_vi = it.desc_vi || mem.desc_vi; }
+                unique.push(it);
+            }
+            unique.sort((a, b) => b.rawDate - a.rawDate);
+            allArticles = unique;
+            filterNews();
+        }
+
+        let translateTimer = null;
+        async function fetchUSNews() {
+            newsLoading = true;
+            await Promise.all(US_RSS_FEEDS.map(async feed => {
+                const items = await fetchSingleFeed(feed);
+                mergeArticles(items);
+                // Gom các lần dịch lại để không gọi dịch quá dồn dập khi nhiều feed về cùng lúc
+                clearTimeout(translateTimer);
+                translateTimer = setTimeout(translateVisibleArticles, 400);
+            }));
+            newsLoading = false;
+            if (!allArticles.length) filterNews();
+        }
+
+        function renderHero(articles) {
+            if (!articles || articles.length < 3) {
+                document.getElementById('hero-section').style.display = 'none';
+                return;
+            }
+            document.getElementById('hero-section').style.display = 'grid';
+
+            const mini1 = articles[0];
+            const mini2 = articles[1];
+            const big = articles[2];
+
+            const tMini1 = (currentLang === 'vi' && mini1.title_vi) ? mini1.title_vi : mini1.title;
+            const tMini2 = (currentLang === 'vi' && mini2.title_vi) ? mini2.title_vi : mini2.title;
+            const tBig = (currentLang === 'vi' && big.title_vi) ? big.title_vi : big.title;
+            const heroTag = currentLang === 'vi' ? '● TIN NỔI BẬT HOA KỲ' : '● US TOP STORIES';
+
+            document.getElementById('hero-mini-container').innerHTML = `
+        <div class="hero-mini-card" onclick="openModal(${allArticles.indexOf(mini1)})">
+          <img src="${escapeHtml(mini1.image)}" class="hero-mini-thumb" alt="Thumb">
+          <div>
+            <span class="badge-pill">● ${mini1.source}</span>
+            <h4 style="font-size:0.86rem; font-weight:700; line-height:1.3; margin-top:4px;">${escapeHtml(tMini1)}</h4>
+            <div style="font-size:0.7rem; color:var(--text-muted); margin-top:4px;">${mini1.pubDate}</div>
+          </div>
+        </div>
+        <div class="hero-mini-card" onclick="openModal(${allArticles.indexOf(mini2)})">
+          <img src="${escapeHtml(mini2.image)}" class="hero-mini-thumb" alt="Thumb">
+          <div>
+            <span class="badge-pill">● ${mini2.source}</span>
+            <h4 style="font-size:0.86rem; font-weight:700; line-height:1.3; margin-top:4px;">${escapeHtml(tMini2)}</h4>
+            <div style="font-size:0.7rem; color:var(--text-muted); margin-top:4px;">${mini2.pubDate}</div>
+          </div>
+        </div>
+      `;
+
+            document.getElementById('hero-big-container').onclick = () => openModal(allArticles.indexOf(big));
+            document.getElementById('hero-big-container').innerHTML = `
+        <img src="${escapeHtml(big.image)}" class="hero-bg-img" alt="Hero">
+        <div class="hero-overlay"></div>
+        <div class="hero-big-content">
+          <span class="badge-pill" style="color: #60a5fa;">${heroTag}</span>
+          <h3 class="hero-big-title">${escapeHtml(tBig)}</h3>
+          <div style="font-size:0.75rem; opacity:0.85;">${big.source} • ${big.pubDate}</div>
+        </div>
+      `;
+        }
+
+        function filterCategory(cat, el) {
+            currentCategory = cat;
+            visibleCount = 6;
+
+            document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+            const tab = el || document.getElementById('tab-' + cat);
+            if (tab) tab.classList.add('active');
+
+            const nav = document.getElementById('nav-menu');
+            if (nav.classList.contains('open')) toggleMobileMenu();
+
+            const titlesVi = {
+                'all': 'TIN TỨC HOA KỲ MỚI NHẤT',
+                'politics': 'CHÍNH TRỊ & BẦU CỬ HOA KỲ',
+                'economy': 'KINH TẾ, LÃI SUẤT & THỊ TRƯỜNG',
+                'life': 'ĐỜI SỐNG, LUẬT DI TRÚ & AN SINH',
+                'tech': 'CÔNG NGHỆ THUNG LŨNG SILICON & AI',
+                'world': 'THỜI SỰ QUỐC TẾ TỪ WASHINGTON'
+            };
+
+            const titlesEn = {
+                'all': 'LATEST US NEWS & UPDATES',
+                'politics': 'US POLITICS & ELECTIONS',
+                'economy': 'ECONOMY, RATES & WALL STREET',
+                'life': 'IMMIGRATION & US LIVING',
+                'tech': 'SILICON VALLEY & AI TECH',
+                'world': 'WORLD AFFAIRS FROM WASHINGTON'
+            };
+
+            const displayTitle = currentLang === 'vi' ? (titlesVi[cat] || 'TIN TỨC') : (titlesEn[cat] || 'NEWS');
+            document.getElementById('section-heading-text').innerHTML = `<span class="dot-accent"></span> ${displayTitle}`;
+
+            filterNews();
+            translateVisibleArticles();
+        }
+
+        function filterNews() {
+            const q = document.getElementById('search-input').value.toLowerCase();
+
+            const filtered = allArticles.filter(item => {
+                const matchCat = (currentCategory === 'all') ? true : (item.category === currentCategory);
+                const title = ((currentLang === 'vi' && item.title_vi) ? item.title_vi : item.title).toLowerCase();
+                return matchCat && title.includes(q);
+            });
+
+            if (!q && filtered.length >= 3) {
+                currentHeroArticles = filtered.slice(0, 3);
+                currentFilteredArticles = filtered.slice(3);
+                renderHero(currentHeroArticles);
+            } else {
+                document.getElementById('hero-section').style.display = 'none';
+                currentHeroArticles = [];
+                currentFilteredArticles = filtered;
+            }
+
+            renderNewsGrid();
+        }
+
+        function renderNewsGrid() {
+            const container = document.getElementById('news-grid-container');
+            const loadBtn = document.getElementById('load-more-wrap');
+            container.innerHTML = '';
+
+            if (currentFilteredArticles.length === 0) {
+                let msg;
+                if (newsLoading) msg = currentLang === 'vi' ? '<i class="fa-solid fa-spinner fa-spin"></i> Đang tải tin tức Hoa Kỳ...' : '<i class="fa-solid fa-spinner fa-spin"></i> Loading US news...';
+                else if (!allArticles.length) msg = currentLang === 'vi' ? 'Chưa tải được tin. Vui lòng tải lại trang sau ít phút.' : 'Could not load news. Please reload in a few minutes.';
+                else msg = currentLang === 'vi' ? 'Không có bài viết phù hợp.' : 'No matching articles found.';
+                container.innerHTML = `<p style="grid-column:1/-1; text-align:center; padding:2rem; color:var(--text-muted);">${msg}</p>`;
+                loadBtn.style.display = 'none';
+                return;
+            }
+
+            const displayList = currentFilteredArticles.slice(0, visibleCount);
+
+            displayList.forEach(item => {
+                const idx = allArticles.indexOf(item);
+                const card = document.createElement('div');
+                card.className = 'foxiz-card';
+                card.onclick = () => openModal(idx);
+
+                const title = (currentLang === 'vi' && item.title_vi) ? item.title_vi : item.title;
+                const readLabel = currentLang === 'vi' ? 'Đọc nhanh' : 'Quick Read';
+
+                card.innerHTML = `
+          <div class="card-thumb-wrap">
+            <img src="${escapeHtml(item.image)}" alt="Thumb" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1508873696983-2df5293cb32b?auto=format&fit=crop&w=500&q=80'">
+          </div>
+          <div class="card-info">
+            <div>
+              <span class="badge-pill">● ${item.source}</span>
+              <h4 class="card-title">${escapeHtml(title)}</h4>
+            </div>
+            <div class="card-meta">
+              <span><i class="fa-regular fa-clock"></i> ${item.pubDate}</span>
+              <span style="color:var(--primary-blue); font-weight:700; margin-left:auto;">${readLabel}</span>
+            </div>
+          </div>
+        `;
+                container.appendChild(card);
+            });
+
+            loadBtn.style.display = (visibleCount < currentFilteredArticles.length) ? 'block' : 'none';
+        }
+
+        function loadMoreNews() {
+            visibleCount += 6;
+            renderNewsGrid();
+            translateVisibleArticles();
+        }
+
+        async function openModal(idx) {
+            const item = allArticles[idx];
+            if (!item) return;
+
+            const fill = () => {
+                document.getElementById('modal-badge').innerText = `● ${item.source.toUpperCase()}`;
+                document.getElementById('modal-title').innerText = (currentLang === 'vi' && item.title_vi) ? item.title_vi : item.title;
+                document.getElementById('modal-date').innerText = item.pubDate;
+                document.getElementById('modal-img').src = item.image;
+
+                const rawText = (currentLang === 'vi' && item.desc_vi) ? item.desc_vi : item.description;
+                const paragraphs = rawText.split('\n').filter(p => p.trim().length > 0);
+                document.getElementById('modal-content').innerHTML = paragraphs.map(p => `<p>${escapeHtml(p)}</p>`).join('');
+
+                document.getElementById('modal-link').href = item.link;
+            };
+
+            fill();
+            document.getElementById('article-modal').style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+
+            // Bài chưa kịp dịch thì dịch ngay rồi cập nhật lại
+            if (currentLang === 'vi' && (!item.title_vi || !item.desc_vi)) {
+                await translateSingleArticle(item);
+                if (document.getElementById('article-modal').style.display === 'flex') fill();
+            }
+        }
+
+        function closeModal() {
+            document.getElementById('article-modal').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        function handleModalClick(e) {
+            if (e.target.id === 'article-modal') closeModal();
+        }
+
+        function changeLanguage(lang) {
+            if (currentLang === lang) return;
+            currentLang = lang;
+
+            document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+            document.getElementById('btn-vi').classList.toggle('active', lang === 'vi');
+
+            updateDateTime();
+
+            if (lang === 'vi') {
+                document.getElementById('top-breaking-tag').innerText = 'TIN NÓNG 24/7';
+                document.getElementById('search-input').placeholder = 'Tìm kiếm thời sự Hoa Kỳ...';
+
+                document.getElementById('tab-all').innerHTML = '<i class="fa-solid fa-bolt"></i> Thời Sự Hoa Kỳ';
+                document.getElementById('tab-politics').innerHTML = '<i class="fa-solid fa-landmark-dome"></i> Chính Trị Hoa Kỳ';
+                document.getElementById('tab-economy').innerHTML = '<i class="fa-solid fa-chart-line"></i> Kinh Tế & Wall St';
+                document.getElementById('tab-life').innerHTML = '<i class="fa-solid fa-passport"></i> Đời Sống & Di Trú';
+                document.getElementById('tab-tech').innerHTML = '<i class="fa-solid fa-microchip"></i> Thung Lũng Silicon';
+                document.getElementById('tab-world').innerHTML = '<i class="fa-solid fa-earth-americas"></i> Thế Giới';
+
+                document.getElementById('pill-c1').innerText = 'Chính Trị & Bầu Cử';
+                document.getElementById('pill-c2').innerText = 'Thị Trường Chứng Khoán';
+                document.getElementById('pill-c3').innerText = 'Luật Di Trú & Thẻ Xanh';
+                document.getElementById('pill-c4').innerText = 'Trí Tuệ Nhân Tạo (AI)';
+                document.getElementById('pill-c5').innerText = 'Quan Hệ Quốc Tế';
+
+                document.getElementById('load-more-lbl').innerText = 'XEM THÊM TIN MỚI';
+                document.getElementById('yt-widget-heading').innerText = 'Truyền Hình Người Việt';
+                document.getElementById('w-widget-title').innerText = 'Thời Tiết Tại Mỹ';
+                document.getElementById('poll-heading').innerText = 'Thăm Dò Ý Kiến Bạn Đọc';
+                document.getElementById('poll-q').innerText = 'Theo bạn, yếu tố nào quan trọng nhất đối với kinh tế gia đình người Việt tại Hoa Kỳ năm 2026?';
+                document.getElementById('opt-1').innerText = 'Lãi suất vay mua nhà (Mortgage)';
+                document.getElementById('opt-2').innerText = 'Kiểm soát lạm phát & giá tiêu dùng';
+                document.getElementById('opt-3').innerText = 'Cơ hội việc làm & ngành công nghệ';
+                document.getElementById('opt-4').innerText = 'Chính sách thuế & An sinh xã hội';
+                document.getElementById('about-heading').innerText = 'Về Người Việt Today';
+                document.getElementById('about-desc').innerText = 'Trang tổng hợp tin tức Hoa Kỳ độc lập, mang đến cái nhìn đa chiều về chính trị, thị trường tài chính, luật di trú và nhịp sống cộng đồng người Việt khắp 50 tiểu bang.';
+
+                document.getElementById('modal-editor-lbl').innerText = 'Người Việt Today Biên Dịch';
+                document.getElementById('modal-official-lbl').innerHTML = '<i class="fa-solid fa-shield-halved"></i> Bản quyền nội dung gốc thuộc về hãng thông tấn phát hành.';
+                document.getElementById('modal-btn-lbl').innerText = 'Xem Toàn Văn Báo Gốc';
+
+                document.getElementById('footer-site-desc').innerText = 'Trang báo điện tử cập nhật tin tức thời sự Hoa Kỳ, kinh tế và đời sống cộng đồng người Việt tại Hoa Kỳ 24/7.';
+                document.getElementById('footer-col1-heading').innerText = 'Chuyên Mục';
+                document.getElementById('f-link-1').innerText = 'Chính Trị Hoa Kỳ';
+                document.getElementById('f-link-2').innerText = 'Kinh Tế & Thị Trường';
+                document.getElementById('f-link-3').innerText = 'Đời Sống & Di Trú';
+                document.getElementById('f-link-4').innerText = 'Công Nghệ Silicon';
+                document.getElementById('footer-col2-heading').innerText = 'Đài Báo Nguồn';
+                document.getElementById('footer-news-heading').innerText = 'Bản Tin Sáng (Newsletter)';
+                document.getElementById('footer-news-sub').innerText = 'Nhận điểm tin thời sự Mỹ nổi bật vào mỗi 7:00 AM.';
+                document.getElementById('footer-email-input').placeholder = 'Nhập email của bạn...';
+                document.getElementById('footer-sub-btn').innerText = 'ĐĂNG KÝ NGAY';
+                document.getElementById('footer-copy').innerHTML = '&copy; 2026 Người Việt Today. All rights reserved. Powered by US RSS News Aggregator.';
+            } else {
+                document.getElementById('top-breaking-tag').innerText = 'BREAKING NEWS';
+                document.getElementById('search-input').placeholder = 'Search US news & stories...';
+
+                document.getElementById('tab-all').innerHTML = '<i class="fa-solid fa-bolt"></i> US News';
+                document.getElementById('tab-politics').innerHTML = '<i class="fa-solid fa-landmark-dome"></i> Politics';
+                document.getElementById('tab-economy').innerHTML = '<i class="fa-solid fa-chart-line"></i> Economy & Wall St';
+                document.getElementById('tab-life').innerHTML = '<i class="fa-solid fa-passport"></i> Life & Immigration';
+                document.getElementById('tab-tech').innerHTML = '<i class="fa-solid fa-microchip"></i> Silicon Valley';
+                document.getElementById('tab-world').innerHTML = '<i class="fa-solid fa-earth-americas"></i> World';
+
+                document.getElementById('pill-c1').innerText = 'Politics & Elections';
+                document.getElementById('pill-c2').innerText = 'Stock Market & Wall St';
+                document.getElementById('pill-c3').innerText = 'Immigration & Green Card';
+                document.getElementById('pill-c4').innerText = 'Artificial Intelligence';
+                document.getElementById('pill-c5').innerText = 'Global Affairs';
+
+                document.getElementById('load-more-lbl').innerText = 'LOAD MORE STORIES';
+                document.getElementById('yt-widget-heading').innerText = 'Nguoi Viet Video Media';
+                document.getElementById('w-widget-title').innerText = 'US City Weather';
+                document.getElementById('poll-heading').innerText = 'Community Poll';
+                document.getElementById('poll-q').innerText = 'What factor do you think is most crucial for Vietnamese American families in 2026?';
+                document.getElementById('opt-1').innerText = 'Mortgage & Home Loan Rates';
+                document.getElementById('opt-2').innerText = 'Inflation & Cost of Living';
+                document.getElementById('opt-3').innerText = 'Job Market & Tech Industry';
+                document.getElementById('opt-4').innerText = 'Tax Policies & Social Security';
+                document.getElementById('about-heading').innerText = 'About Nguoi Viet Today';
+                document.getElementById('about-desc').innerText = 'Independent US news hub providing multi-dimensional insights into politics, financial markets, immigration law, and Vietnamese American lifestyle across all 50 states.';
+
+                document.getElementById('modal-editor-lbl').innerText = 'Nguoi Viet Today Editorial';
+                document.getElementById('modal-official-lbl').innerHTML = '<i class="fa-solid fa-shield-halved"></i> Original content copyright belongs to official publishers.';
+                document.getElementById('modal-btn-lbl').innerText = 'Read Original Article';
+
+                document.getElementById('footer-site-desc').innerText = 'Digital news hub delivering 24/7 breaking US news, economic updates, and community stories.';
+                document.getElementById('footer-col1-heading').innerText = 'Categories';
+                document.getElementById('f-link-1').innerText = 'US Politics';
+                document.getElementById('f-link-2').innerText = 'Markets & Economy';
+                document.getElementById('f-link-3').innerText = 'Immigration & Life';
+                document.getElementById('f-link-4').innerText = 'Silicon Valley Tech';
+                document.getElementById('footer-col2-heading').innerText = 'News Partners';
+                document.getElementById('footer-news-heading').innerText = 'Daily Morning Briefing';
+                document.getElementById('footer-news-sub').innerText = 'Get essential US daily news straight to your inbox at 7:00 AM.';
+                document.getElementById('footer-email-input').placeholder = 'Enter your email address...';
+                document.getElementById('footer-sub-btn').innerText = 'SUBSCRIBE';
+                document.getElementById('footer-copy').innerHTML = '&copy; 2026 Nguoi Viet Today. All rights reserved. Powered by US RSS News Aggregator.';
+            }
+
+            filterCategory(currentCategory, document.querySelector(`.nav-tab.active`));
+        }
+
+        // KHỞI CHẠY CÁC DỊCH VỤ
+        fetchUSNews();
+        setInterval(fetchUSNews, REFRESH_INTERVAL);
+        fetchUSWeather();
+        renderRandomKlookTours();
+        fetchAutoYoutubePlaylist();
+        fetchUSDRate();
+    </script>
+</body>
+
+</html>
