@@ -2194,10 +2194,38 @@ aside,
 
         // LẤY ẢNH ĐẠI DIỆN TỪ TRANG BÀI GỐC QUA WORKER (feed CNBC không có ảnh, NPR nhiều bài thiếu ảnh)
         const OG_HOSTS = ['www.npr.org', 'www.cnbc.com', 'www.foxnews.com', 'www.foxbusiness.com'];
-        const OG_CACHE_KEY = 'nv_og_images_v1';
+        // Lưu dạng { link: { img, t } }. Kết quả "không có ảnh" chỉ nhớ 30 phút rồi hỏi lại.
+        const OG_CACHE_KEY = 'nv_og_images_v2';
+        const OG_MISS_TTL = 30 * 60 * 1000;
         let ogCache = {};
-        try { ogCache = JSON.parse(localStorage.getItem(OG_CACHE_KEY) || '{}'); } catch (e) { }
+        try {
+            localStorage.removeItem('nv_og_images_v1');  // bản cũ có thể đã lưu nhầm "không có ảnh"
+            ogCache = JSON.parse(localStorage.getItem(OG_CACHE_KEY) || '{}');
+        } catch (e) { }
         const ogPending = new Set();
+        const ogBroken = new Set();  // bài có ảnh trong feed nhưng ảnh đó tải lỗi
+
+        function ogKnown(link) {
+            const e = ogCache[link];
+            if (!e) return false;
+            if (e.img) return true;
+            return Date.now() - e.t < OG_MISS_TTL;
+        }
+
+        // Ảnh tải lỗi: hiện ảnh dự phòng, đồng thời thử lấy ảnh đại diện từ trang bài gốc
+        function onImgError(el) {
+            el.onerror = null;
+            el.src = FALLBACK_IMG;
+            const link = el.getAttribute('data-link');
+            if (!link || ogBroken.has(link)) return;
+            ogBroken.add(link);
+            const cached = ogCache[link];
+            allArticles.filter(a => a.link === link).forEach(a => {
+                if (cached && cached.img && a.image !== cached.img) a.image = cached.img;
+                else a.needsImage = true;
+            });
+            if (cached && cached.img) scheduleImageRender(); else fetchMissingImages();
+        }
 
         function canFetchOg(link) {
             if (!WORKER_PROXY) return false;
@@ -2206,38 +2234,51 @@ aside,
 
         function applyCachedImage(item) {
             if (!item.needsImage) return;
-            const img = ogCache[item.link];
-            if (img) { item.image = img; item.needsImage = false; }
+            const e = ogCache[item.link];
+            if (e && e.img) { item.image = e.img; item.needsImage = false; }
         }
 
         let ogRenderTimer = null;
         function fetchMissingImages() {
             const visible = [...currentHeroArticles, ...currentFilteredArticles.slice(0, visibleCount)];
-            const todo = visible.filter(it => it.needsImage && !(it.link in ogCache) && !ogPending.has(it.link) && canFetchOg(it.link));
+            const todo = visible.filter(it => it.needsImage && !ogKnown(it.link) && !ogPending.has(it.link) && canFetchOg(it.link));
             todo.forEach(async item => {
                 ogPending.add(item.link);
                 let image = null;
+                let answered = false;
                 try {
                     const r = await fetchWithTimeout(`${WORKER_PROXY.replace(/\/$/, '')}/?og=${encodeURIComponent(item.link)}`, 10000);
-                    if (r.ok) image = (await r.json()).image || null;
+                    if (r.ok) { image = (await r.json()).image || null; answered = true; }
                 } catch (e) { }
                 ogPending.delete(item.link);
-                ogCache[item.link] = image;  // lưu cả kết quả rỗng để không hỏi lại mãi
+                // Chỉ nhớ "không có ảnh" khi Worker trả lời đàng hoàng (Worker lỗi thì lần sau hỏi lại)
+                if (answered) ogCache[item.link] = { img: image, t: Date.now() };
                 try {
                     const keys = Object.keys(ogCache);
                     if (keys.length > 400) keys.slice(0, keys.length - 400).forEach(k => delete ogCache[k]);
                     localStorage.setItem(OG_CACHE_KEY, JSON.stringify(ogCache));
                 } catch (e) { }
-                if (!image) return;
+                if (!image) {
+                    // Ảnh trong feed hỏng và trang gốc cũng không có ảnh: dùng ảnh tạm để khỏi nháy lỗi
+                    if (ogBroken.has(item.link)) {
+                        allArticles.filter(a => a.link === item.link).forEach(a => { a.image = placeholderImage(a.title); });
+                        scheduleImageRender();
+                    }
+                    return;
+                }
                 allArticles.filter(a => a.link === item.link).forEach(a => { a.image = image; a.needsImage = false; });
                 item.image = image; item.needsImage = false;
-                // Gom nhiều ảnh về cùng lúc thành 1 lần vẽ lại
-                clearTimeout(ogRenderTimer);
-                ogRenderTimer = setTimeout(() => {
-                    if (!document.getElementById('search-input').value && currentHeroArticles.length >= 3) renderHero(currentHeroArticles);
-                    renderNewsGrid();
-                }, 300);
+                scheduleImageRender();
             });
+        }
+
+        // Gom nhiều ảnh về cùng lúc thành 1 lần vẽ lại
+        function scheduleImageRender() {
+            clearTimeout(ogRenderTimer);
+            ogRenderTimer = setTimeout(() => {
+                if (!document.getElementById('search-input').value && currentHeroArticles.length >= 3) renderHero(currentHeroArticles);
+                renderNewsGrid();
+            }, 300);
         }
 
         // Lấy chữ thuần từ HTML mà không cho trình duyệt tải ảnh/script trong đó
@@ -2406,7 +2447,7 @@ aside,
 
             document.getElementById('hero-mini-container').innerHTML = `
         <div class="hero-mini-card" onclick="openModal(${allArticles.indexOf(mini1)})">
-          <img src="${escapeHtml(mini1.image)}" class="hero-mini-thumb" alt="Thumb" onerror="this.onerror=null;this.src='${FALLBACK_IMG}'">
+          <img src="${escapeHtml(mini1.image)}" class="hero-mini-thumb" alt="Thumb" data-link="${escapeHtml(mini1.link)}" onerror="onImgError(this)">
           <div>
             <span class="badge-pill">● ${mini1.source}</span>
             <h4 style="font-size:0.86rem; font-weight:700; line-height:1.3; margin-top:4px;">${escapeHtml(tMini1)}</h4>
@@ -2414,7 +2455,7 @@ aside,
           </div>
         </div>
         <div class="hero-mini-card" onclick="openModal(${allArticles.indexOf(mini2)})">
-          <img src="${escapeHtml(mini2.image)}" class="hero-mini-thumb" alt="Thumb" onerror="this.onerror=null;this.src='${FALLBACK_IMG}'">
+          <img src="${escapeHtml(mini2.image)}" class="hero-mini-thumb" alt="Thumb" data-link="${escapeHtml(mini2.link)}" onerror="onImgError(this)">
           <div>
             <span class="badge-pill">● ${mini2.source}</span>
             <h4 style="font-size:0.86rem; font-weight:700; line-height:1.3; margin-top:4px;">${escapeHtml(tMini2)}</h4>
@@ -2425,7 +2466,7 @@ aside,
 
             document.getElementById('hero-big-container').onclick = () => openModal(allArticles.indexOf(big));
             document.getElementById('hero-big-container').innerHTML = `
-        <img src="${escapeHtml(big.image)}" class="hero-bg-img" alt="Hero" onerror="this.onerror=null;this.src='${FALLBACK_IMG}'">
+        <img src="${escapeHtml(big.image)}" class="hero-bg-img" alt="Hero" data-link="${escapeHtml(big.link)}" onerror="onImgError(this)">
         <div class="hero-overlay"></div>
         <div class="hero-big-content">
           <span class="badge-pill" style="color: #60a5fa;">${heroTag}</span>
@@ -2521,7 +2562,7 @@ aside,
 
                 card.innerHTML = `
           <div class="card-thumb-wrap">
-            <img src="${escapeHtml(item.image)}" alt="Thumb" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1508873696983-2df5293cb32b?auto=format&fit=crop&w=500&q=80'">
+            <img src="${escapeHtml(item.image)}" alt="Thumb" loading="lazy" data-link="${escapeHtml(item.link)}" onerror="onImgError(this)">
           </div>
           <div class="card-info">
             <div>
