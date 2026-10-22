@@ -1823,9 +1823,9 @@ aside,
     </footer>
 
     <script>
-        // PROXY RIÊNG (Cloudflare Worker, xem file rss-worker.js). Dùng chung Worker với trang VC Now Canada.
-        // Nhớ dán lại code rss-worker.js mới vào Cloudflare để Worker cho phép các nguồn Hoa Kỳ bên dưới.
-        const WORKER_PROXY = 'https://vc-rss.ptmedia.workers.dev';
+        // PROXY RIÊNG (Cloudflare Worker, xem file rss-worker.js), chạy trên tài khoản Cloudflare riêng của trang này.
+        // Code Worker phải có các nguồn Hoa Kỳ (moxie.foxnews.com, feeds.npr.org, www.cnbc.com) trong ALLOWED_HOSTS.
+        const WORKER_PROXY = 'https://nvtoday.nguoiviet.workers.dev';
 
         // Nguồn RSS đang hoạt động. CNN (rss.cnn.com) đã ngừng cập nhật nên được thay bằng Fox, NPR, CNBC.
         const US_RSS_FEEDS = [
