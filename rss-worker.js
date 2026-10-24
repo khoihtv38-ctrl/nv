@@ -6,7 +6,11 @@ const ALLOWED_HOSTS = [
   'www.cbc.ca',
   'globalnews.ca',
   'feeds.bbci.co.uk',
-  'e.vnexpress.net'
+  'e.vnexpress.net',
+  // Canada & US Geopolitical Terminal (terminal.html)
+  'news.google.com',
+  'www.ctvnews.ca',
+  'financialpost.com'
 ];
 
 const CORS = {
