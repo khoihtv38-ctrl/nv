@@ -700,36 +700,52 @@
         });
         scrollContainer.addEventListener('mouseleave', () => clearInterval(autoScrollInterval));
 
-        // NGUỒN CẤP TIN CHUẨN TỪ CODE GỐC
+        // NGUỒN CẤP TIN
+        // topic: cột mặc định khi bài không khớp từ khóa nào (bài từ nguồn chuyên đề không bị bỏ sót)
         const FEED_CONFIGS = [
-            { name: 'CRA / Canada.ca', url: 'https://news.google.com/rss/search?q=("Canada+Child+Benefit"+OR+"GST/HST+credit"+OR+"Canada+Carbon+Rebate"+OR+"CRA+payment"+OR+"dental+care+plan"+OR+"OAS"+OR+"pension+increase")+Canada&hl=en-CA&gl=CA&ceid=CA:en', isGov: true },
-            { name: 'Chính Phủ Canada', url: 'https://news.google.com/rss/search?q=site:canada.ca+("benefit+payment"+OR+"direct+deposit"+OR+"tax+refund"+OR+"child+benefit"+OR+"climate+action+incentive")&hl=en-CA&gl=CA&ceid=CA:en', isGov: true },
+            // --- Chính phủ / trợ cấp ---
+            { name: 'CRA / Canada.ca', topic: 'benefit', isGov: true, url: 'https://news.google.com/rss/search?q=("Canada+Child+Benefit"+OR+"GST/HST+credit"+OR+"Canada+Carbon+Rebate"+OR+"CRA+payment"+OR+"dental+care+plan"+OR+"OAS"+OR+"pension+increase")+Canada&hl=en-CA&gl=CA&ceid=CA:en' },
+            { name: 'Chính Phủ Canada', topic: 'benefit', isGov: true, url: 'https://news.google.com/rss/search?q=site:canada.ca+("benefit+payment"+OR+"direct+deposit"+OR+"tax+refund"+OR+"child+benefit"+OR+"climate+action+incentive")&hl=en-CA&gl=CA&ceid=CA:en' },
+
+            // --- Báo lớn: RSS gốc của từng trang ---
             { name: 'CBC News', url: 'https://www.cbc.ca/cmlink/rss-politics' },
-            { name: 'CBC News Top', url: 'https://www.cbc.ca/cmlink/rss-topstories' },
-            { name: 'CTV News', url: 'https://www.ctvnews.ca/rss/ctvnews-ca-politics-public-rss-1.822302' },
-            { name: 'CTV Health', url: 'https://www.ctvnews.ca/rss/ctvnews-ca-health-public-rss-1.822308' },
+            { name: 'CBC News', url: 'https://www.cbc.ca/cmlink/rss-topstories' },
+            { name: 'CTV News', url: 'https://www.ctvnews.ca/arc/outboundfeeds/rss/?outputType=xml' },
+            { name: 'CP24', url: 'https://www.cp24.com/arc/outboundfeeds/rss/?outputType=xml' },
+            { name: 'National Post', url: 'https://nationalpost.com/feed' },
+            { name: 'National Post', url: 'https://nationalpost.com/category/news/canada/feed' },
+            { name: 'Financial Post', url: 'https://financialpost.com/feed' },
             { name: 'Financial Post', url: 'https://financialpost.com/category/fp-finance/feed' },
-            { name: 'Google News Chính Trị', url: 'https://news.google.com/rss/search?q=(Trump+OR+Carney+OR+Trudeau+OR+Poilievre+OR+tariff)+Canada&hl=en-CA&gl=CA&ceid=CA:en' },
-            { name: 'Google News Hàng Không', url: 'https://news.google.com/rss/search?q=(Air+Canada+OR+WestJet+OR+flight+OR+gas+prices+OR+oil)+Canada&hl=en-CA&gl=CA&ceid=CA:en' },
-            { name: 'Google News Trợ Cấp', url: 'https://news.google.com/rss/search?q=("Canada+Child+Benefit"+OR+"CCB"+OR+"GST+credit"+OR+"grocery+rebate"+OR+"carbon+rebate"+OR+"OAS+payment")+Canada&hl=en-CA&gl=CA&ceid=CA:en' },
-            { name: 'Google News Lao Động', url: 'https://news.google.com/rss/search?q=(strike+OR+jobs+OR+unemployment+OR+Bank+of+Canada+OR+mortgage)+Canada&hl=en-CA&gl=CA&ceid=CA:en' },
-            { name: 'Google News Sức Khỏe', url: 'https://news.google.com/rss/search?q=(recall+OR+CFIA+OR+Health+Canada+warning+OR+hospital)+Canada&hl=en-CA&gl=CA&ceid=CA:en' },
-            { name: 'Google News Cháy Rừng', url: 'https://news.google.com/rss/search?q=(wildfire+OR+forest+fire+OR+evacuation+alert)+Canada&hl=en-CA&gl=CA&ceid=CA:en' },
-            { name: 'Google News Ly Khai', url: 'https://news.google.com/rss/search?q=(separatism+OR+Wexit+OR+Danielle+Smith+referendum)&hl=en-CA&gl=CA&ceid=CA:en' },
-            { name: 'Google News Độc Lạ', url: 'https://news.google.com/rss/search?q=(weird+OR+bizarre+OR+odd+OR+wildlife+OR+record)+Canada&hl=en-CA&gl=CA&ceid=CA:en' }
+            { name: 'Globe and Mail', url: 'https://www.theglobeandmail.com/arc/outboundfeeds/rss/category/canada/' },
+            { name: 'Globe and Mail', url: 'https://www.theglobeandmail.com/arc/outboundfeeds/rss/category/politics/' },
+            { name: 'Globe and Mail', url: 'https://www.theglobeandmail.com/arc/outboundfeeds/rss/category/business/' },
+
+            // --- Báo lớn qua Google News (dự phòng chắc chắn chạy nếu RSS gốc đổi link) ---
+            { name: 'CTV News', url: 'https://news.google.com/rss/search?q=(site:ctvnews.ca+OR+site:cp24.com)+when:1d&hl=en-CA&gl=CA&ceid=CA:en' },
+            { name: 'Globe and Mail', url: 'https://news.google.com/rss/search?q=site:theglobeandmail.com+when:1d&hl=en-CA&gl=CA&ceid=CA:en' },
+            { name: 'National Post', url: 'https://news.google.com/rss/search?q=(site:nationalpost.com+OR+site:financialpost.com)+when:1d&hl=en-CA&gl=CA&ceid=CA:en' },
+
+            // --- Google News theo chuyên đề ---
+            { name: 'Google News Chính Trị', topic: 'hero', url: 'https://news.google.com/rss/search?q=(Trump+OR+Carney+OR+Poilievre+OR+tariff)+Canada&hl=en-CA&gl=CA&ceid=CA:en' },
+            { name: 'Google News Hàng Không', topic: 'aviation', url: 'https://news.google.com/rss/search?q=("Air+Canada"+OR+WestJet+OR+Porter+OR+airport+OR+"gas+prices"+OR+"oil+prices")+Canada&hl=en-CA&gl=CA&ceid=CA:en' },
+            { name: 'Google News Trợ Cấp', topic: 'benefit', url: 'https://news.google.com/rss/search?q=("Canada+Child+Benefit"+OR+"CCB"+OR+"GST+credit"+OR+"grocery+rebate"+OR+"carbon+rebate"+OR+"OAS+payment")+Canada&hl=en-CA&gl=CA&ceid=CA:en' },
+            { name: 'Google News Lao Động', topic: 'labor', url: 'https://news.google.com/rss/search?q=(strike+OR+layoffs+OR+unemployment+OR+"Bank+of+Canada"+OR+mortgage+OR+"interest+rate")+Canada&hl=en-CA&gl=CA&ceid=CA:en' },
+            { name: 'Google News Sức Khỏe', topic: 'health', url: 'https://news.google.com/rss/search?q=(recall+OR+CFIA+OR+"Health+Canada"+OR+hospital+OR+outbreak)+Canada&hl=en-CA&gl=CA&ceid=CA:en' },
+            { name: 'Google News Cháy Rừng', topic: 'wildfire', url: 'https://news.google.com/rss/search?q=(wildfire+OR+"forest+fire"+OR+"evacuation+order"+OR+flood+OR+earthquake+OR+"weather+warning")+Canada&hl=en-CA&gl=CA&ceid=CA:en' },
+            { name: 'Google News Ly Khai', topic: 'separatism', url: 'https://news.google.com/rss/search?q=(separatism+OR+Wexit+OR+"Alberta+independence"+OR+"Quebec+sovereignty"+OR+referendum)+Canada&hl=en-CA&gl=CA&ceid=CA:en' },
+            { name: 'Google News Độc Lạ', topic: 'quirky', url: 'https://news.google.com/rss/search?q=(weird+OR+bizarre+OR+"odd+news"+OR+moose+OR+bear+OR+lottery)+Canada&hl=en-CA&gl=CA&ceid=CA:en' }
         ];
 
         const FILTERS = {
-            aviation: /air canada|westjet|airline|flight|airport|pilot|aviation|cancel|boeing|gas price|gasoline|pump price|crude oil|petroleum|pipeline|enbridge/i,
-            benefit: /\b(canada child benefit|ccb|gst credit|hst credit|carbon rebate|climate action incentive|cra payment|tax refund|direct deposit|benefit payment|dental care plan|canada dental benefit|oas payment|old age security|guaranteed income supplement|gis|cpp payout|ei benefit|pension increase|grocery rebate|workers benefit|acwb)\b/i,
-            labor: /strike|union|worker|wage|employment|job|layoff|lmia|minimum wage|hiring|unemployment|bank of canada|interest rate|mortgage|central bank|inflation|rbc|td bank|scotiabank|bmo|cibc|banking/i,
-            health: /\b(product recall|recalled|food recall|cfia|health canada warning|listeria|salmonella|contamination|food inspection|unsafe product|allergen warning|consumer alert|hospital|disease|measles|covid|virus|outbreak|health care|doctor|nursing|vaccine|public health|phac)\b/i,
-            wildfire: /wildfire|forest fire|fire evacuation|evacuation alert|smoke alert|air quality statement|flames|firefighters battle|out of control fire|wildfire season/i,
-            separatism: /separat|wexit|quebec sovereignty|alberta sovereignty|referendum|independent alberta|bloc quebecois/i,
-            quirky: /weird|bizarre|odd|bear|moose|polar bear|ufo|lottery|mystery|curious|record cold|snowstorm|miracle/i,
-            poli: /trump|carney|mark carney|trudeau|poilievre|parliament|election|budget|ottawa|tariff|liberal|conservative/i
+            hero: /\b(trump|carney|white house|tariffs?|cusma|usmca|trade war|poilievre|parliament|house of commons|federal election|federal budget|prime minister|premier ford|danielle smith|g7|nato)\b/i,
+            aviation: /\b(air canada|westjet|porter airlines|flair|airlines?|flights?|airports?|pilots?|aviation|boeing|airbus|gas prices?|gasoline|pump prices?|crude oil|oil prices?|petroleum|pipelines?|enbridge|trans mountain|opec)\b/i,
+            benefit: /\b(canada child benefit|ccb|gst credit|hst credit|gst\/hst credit|carbon rebate|climate action incentive|cra payment|tax refund|direct deposit|benefit payments?|dental care plan|canada dental benefit|oas payment|old age security|guaranteed income supplement|cpp payment|ei benefits?|pension increase|grocery rebate|workers benefit|acwb|disability benefit)\b/i,
+            labor: /\b(strikes?|union|workers?|wages?|employment|jobs?|layoffs?|laid off|lmia|minimum wage|hiring|unemployment|bank of canada|interest rates?|rate cut|mortgages?|central bank|inflation|cpi|recession|gdp|housing market|rent|rbc|td bank|scotiabank|bmo|cibc|banking|tsx|loonie)\b/i,
+            health: /\b(product recall|recalls?|recalled|food recall|cfia|health canada|listeria|salmonella|e\. coli|contamination|unsafe product|allergen|consumer alert|hospitals?|disease|measles|covid|virus|outbreak|health care|doctors?|nurses?|nursing|vaccines?|public health|phac|emergency room|er closure)\b/i,
+            wildfire: /\b(wildfires?|forest fires?|evacuation (order|alert)s?|evacuat\w+|smoke|air quality|out of control fire|flood(s|ing)?|earthquake|tornado|hurricane|blizzard|snowstorm|ice storm|heat warning|extreme heat|weather warning|landslide|avalanche|power outage)\b/i,
+            separatism: /\b(separatis\w*|wexit|sovereignty|referendum|alberta independence|independent alberta|quebec independence|parti qu[eé]b[eé]cois|bloc qu[eé]b[eé]cois|secession)\b/i,
+            quirky: /\b(weird|bizarre|odd|oddly|strange|unusual|bears?|moose|polar bears?|cougar|raccoons?|ufo|lottery|lotto|jackpot|mystery|curious|record-breaking|world record|guinness|miracle)\b/i
         };
-
         const translationCache = new Map();
         async function translateText(text) {
             if (!text || text.trim() === '') return '';
@@ -787,6 +803,7 @@
                     description: el.querySelector('description, summary, content')?.textContent || ''
                 };
                 it.isGov = cfg.isGov || false;
+                it.topic = cfg.topic || null;
                 it.sourceName = resolveSource(it, cfg.name, it.isGov);
                 return it;
             }).filter(it => it.title);
@@ -866,30 +883,25 @@
         }
 
         async function processColumns() {
-            const unique = Array.from(new Map(rawItems.map(i => [i.title.trim(), i])).values());
+            // Bỏ trùng: cùng bài có thể đến từ RSS gốc và Google News (Google thêm " - Tên báo" cuối tiêu đề)
+            const dedupKey = (t) => t.replace(/\s+-\s+[^-]{2,40}$/, '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
+            const unique = Array.from(new Map(rawItems.map(i => [dedupKey(i.title), i])).values());
             const buckets = { hero: [], aviation: [], benefit: [], labor: [], health: [], wildfire: [], separatism: [], quirky: [] };
 
-            unique.forEach(item => {
-                const text = `${item.title} ${item.description || ''}`;
-                const isStrictBenefit = FILTERS.benefit.test(text);
+            // Phân loại: xét tiêu đề trước (rõ nghĩa nhất), rồi mới xét cả tóm tắt,
+            // cuối cùng dùng chuyên đề của nguồn tin. Trump/Carney trên tiêu đề luôn vào cột chính.
+            const ORDER = ['hero', 'benefit', 'wildfire', 'health', 'separatism', 'aviation', 'labor', 'quirky'];
+            const classify = (item) => {
+                const title = item.title || '';
+                const full = `${title} ${(item.description || '').replace(/<[^>]*>?/gm, ' ')}`;
+                for (const key of ORDER) if (FILTERS[key].test(title)) return key;
+                for (const key of ORDER) if (FILTERS[key].test(full)) return key;
+                return item.topic || null;
+            };
 
-                if (isStrictBenefit) {
-                    buckets.benefit.push(item);
-                } else if (FILTERS.wildfire.test(text)) {
-                    buckets.wildfire.push(item);
-                } else if (FILTERS.health.test(text)) {
-                    buckets.health.push(item);
-                } else if (FILTERS.separatism.test(text)) {
-                    buckets.separatism.push(item);
-                } else if (FILTERS.aviation.test(text)) {
-                    buckets.aviation.push(item);
-                } else if (FILTERS.labor.test(text)) {
-                    buckets.labor.push(item);
-                } else if (FILTERS.quirky.test(text)) {
-                    buckets.quirky.push(item);
-                } else if (FILTERS.poli.test(text) || /trump|carney/i.test(text)) {
-                    buckets.hero.push(item);
-                }
+            unique.forEach(item => {
+                const key = classify(item);
+                if (key && buckets[key]) buckets[key].push(item);
             });
 
             // Sắp xếp bài mới nhất lên đầu

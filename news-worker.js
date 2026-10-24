@@ -7,7 +7,10 @@ const ALLOWED_HOSTS = [
   'news.google.com',
   'www.cbc.ca',
   'www.ctvnews.ca',
+  'www.cp24.com',
+  'nationalpost.com',
   'financialpost.com',
+  'www.theglobeandmail.com',
   'globalnews.ca',
   'feeds.bbci.co.uk',
   'e.vnexpress.net'
