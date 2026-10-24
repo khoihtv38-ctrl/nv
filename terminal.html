@@ -629,8 +629,8 @@
 
     <script>
         // PROXY RSS RIÊNG (Cloudflare Worker, xem file rss-worker.js) — thay cho rss2json.
-        // Nhớ deploy lại Worker sau khi thêm news.google.com / ctvnews.ca / financialpost.com vào ALLOWED_HOSTS.
-        const WORKER_PROXY = 'https://vc-rss.ptmedia.workers.dev';
+        // Code Worker: xem file news-worker.js.
+        const WORKER_PROXY = 'https://news.khoihtv38.workers.dev';
 
         // Không ghi API key vào code (repo công khai sẽ bị lộ key).
         // Key được lưu trong trình duyệt: bấm "⚡ Gemini Phân Tích" lần đầu để nhập.
